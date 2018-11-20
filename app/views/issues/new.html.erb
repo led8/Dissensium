@@ -1,10 +1,15 @@
-<div class="row">
-  <div class="col-xs-12 offset-md-2 col-md-8 white-container container-margin">
-    <h2 class="text-center">Créer un meeting</h2>
-    <%= simple_form_for @issue do |f| %>
-      <%= f.label :Objet_du_meeting, class: "label-style" %>
-      <%= f.input_field :title, class: "form-control" %>
-      <%= f.button :submit, 'Créer le meeting', class: "form-control button-style" %>
-    <% end %>
+
+<%= render 'shared/navbar-logo' %>
+<%= render 'shared/flashes' %>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 offset-md-2 col-md-8 white-container container-margin">
+      <h2 class="text-center">Créer un meeting</h2>
+      <%= simple_form_for @issue do |f| %>
+        <%= f.label :Objet_du_meeting, class: "label-style" %>
+        <%= f.input_field :title, class: "form-control" %>
+        <%= f.button :submit, 'Créer le meeting', class: "form-control button-style" %>
+      <% end %>
+    </div>
   </div>
 </div>
