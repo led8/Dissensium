@@ -50,7 +50,7 @@ Issue.all.each do |issue|
 end
 
 puts '*' * 30
-puts 'Creating random solutions for issues...'
+puts 'Creating random votes for solutions...'
 Issue.all.each do |issue|
   number_of_votes = issue.solutions.count - 1
   issue.solutions.each do |solution|
