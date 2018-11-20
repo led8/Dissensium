@@ -1,3 +1,29 @@
+.home-list {
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 5px;
+  padding-right: 15px;
+  & li {
+    padding: 10vh 0px;
+    color: white;
+    list-style: circle;
+  }
+  & li .list-hover {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    opacity: 0.5;
+  }
+  & li .list-hover:hover {
+    opacity: 1;
+    cursor: pointer;
+    list-style: circle;
+    font-weight: bold;
+  }
+}
+
 .title-dissensium {
   margin-top: 200px;
   font-size: 150px;
