@@ -10,10 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_19_154842) do
+ActiveRecord::Schema.define(version: 2018_11_20_155200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chat_rooms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "issues", force: :cascade do |t|
     t.string "title"
@@ -22,6 +28,16 @@ ActiveRecord::Schema.define(version: 2018_11_19_154842) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_issues_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.bigint "user_id"
+    t.bigint "chat_room_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chat_room_id"], name: "index_messages_on_chat_room_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "solutions", force: :cascade do |t|
@@ -60,6 +76,8 @@ ActiveRecord::Schema.define(version: 2018_11_19_154842) do
   end
 
   add_foreign_key "issues", "users"
+  add_foreign_key "messages", "chat_rooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "solutions", "issues"
   add_foreign_key "solutions", "users"
   add_foreign_key "votes", "solutions"
