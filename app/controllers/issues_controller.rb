@@ -22,7 +22,7 @@ class IssuesController < ApplicationController
   end
 
   def results
-    # @solutions.issue = Solution.where(@votes.solution >= 2)
+
   end
 
   private
