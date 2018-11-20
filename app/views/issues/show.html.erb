@@ -6,7 +6,7 @@
 
   <% if !@issue.solutions.empty? %>
     <div class="row">
-      <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
+      <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
         <h3>Liste des solutions</h3>
         <div class="container-overflow">
           <% @issue.solutions.each do |solution| %>
@@ -22,7 +22,7 @@
   <% end %>
 
   <div class="row">
-    <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
+    <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
       <%= simple_form_for [@issue, @solution] do |f| %>
         <%= f.label :Votre_solution, class: "label-style" %>
         <%= f.input_field :content, class: "form-control" %>
