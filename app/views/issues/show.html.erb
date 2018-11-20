@@ -1,28 +1,32 @@
-<h1 class="text-white"><%= @issue.title %></h1>
+<%= render 'shared/navbar-logo' %>
+<%= render 'shared/flashes' %>
+<div class="container">
+  <h1 class="text-white"><%= @issue.title %></h1>
 
-<% if !@issue.solutions.empty? %>
-  <div class="row">
-    <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
-      <h3>Liste des solutions</h3>
-      <div class="container-overflow">
-        <% @issue.solutions.each do |solution| %>
-          <p><%= solution.content %>
-          <%= simple_form_for [solution, @vote] do |f| %>
-            <%= f.collection_radio_buttons :rating, [[5, "Excellent"], [4, "Très bien"], [3, "Bien"], [2, "Passable"], [1, "Insuffisant"]], :first, :last %>
+  <% if !@issue.solutions.empty? %>
+    <div class="row">
+      <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
+        <h3>Liste des solutions</h3>
+        <div class="container-overflow">
+          <% @issue.solutions.each do |solution| %>
+            <p><%= solution.content %>
+            <%= simple_form_for [solution, @vote] do |f| %>
+              <%= f.collection_radio_buttons :rating, [[5, "Excellent"], [4, "Très bien"], [3, "Bien"], [2, "Passable"], [1, "Insuffisant"]], :first, :last %>
+            <% end %>
+            </p>
           <% end %>
-          </p>
-        <% end %>
+        </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
 
-<div class="row">
-  <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
-    <%= simple_form_for [@issue, @solution] do |f| %>
-      <%= f.label :Votre_solution, class: "label-style" %>
-      <%= f.input_field :content, class: "form-control" %>
-      <%= f.button :submit, 'Soumettre la solution', class: "form-control button-style" %>
-    <% end %>
+  <div class="row">
+    <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
+      <%= simple_form_for [@issue, @solution] do |f| %>
+        <%= f.label :Votre_solution, class: "label-style" %>
+        <%= f.input_field :content, class: "form-control" %>
+        <%= f.button :submit, 'Soumettre la solution', class: "form-control button-style" %>
+      <% end %>
+    </div>
   </div>
 </div>
