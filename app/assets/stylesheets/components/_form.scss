@@ -1,0 +1,20 @@
+.container-margin {
+  margin-top: 20vh;
+}
+
+.label-style {
+  color: #777676;
+  font-family: 'Montserrat', sans-serif;
+}
+
+.button-style {
+  margin-top: 30px;
+  font-family: 'Montserrat', sans-serif;
+  background: #00bf8f;
+  color: white;
+  &:hover {
+    // color: #00bf8f;
+    background: #00e6ac;
+    // border-color: #00bf8f;
+  }
+}

@@ -13,10 +13,9 @@ class IssuesController < ApplicationController
   def create
     @issue = Issue.new(issue_params)
     @issue.user = current_user
-    @issue.save
 
     if @issue.save
-      redirect_to new_issue_path(@issue)
+      redirect_to issue_path(@issue)
     else
       render :new
     end
@@ -29,6 +28,6 @@ class IssuesController < ApplicationController
   private
 
   def issue_params
-    params.require(:issue).permit(:title, :support)
+    params.require(:issue).permit(:title)
   end
 end

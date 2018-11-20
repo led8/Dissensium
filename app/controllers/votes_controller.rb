@@ -4,10 +4,9 @@ class VotesController < ApplicationController
     @vote = Vote.new(vote_params)
     @vote.solution = Solution.find(params[:solution_id])
     @vote.user = current_user
-    @vote.save
 
     if @vote.save
-      # redirect_to new_issue_path(@issue)
+      redirect_to issue_path(@vote.solution[:issue_id])
     else
       render 'issues/new'
     end
