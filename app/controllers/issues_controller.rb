@@ -2,6 +2,8 @@ class IssuesController < ApplicationController
 
   def show
     @issue = Issue.find(params[:id])
+    @solution = Solution.new
+    @vote = Vote.new
   end
 
   def new
@@ -10,6 +12,7 @@ class IssuesController < ApplicationController
 
   def create
     @issue = Issue.new(issue_params)
+    @issue.user = current_user
     @issue.save
 
     if @issue.save
@@ -20,7 +23,7 @@ class IssuesController < ApplicationController
   end
 
   def results
-    @solutions.issue = Solution.where(@votes.issue >= 2)
+    # @solutions.issue = Solution.where(@votes.solution >= 2)
   end
 
   private
