@@ -1,1 +1,17 @@
-// Specific CSS for your home-page
+.title-dissensium {
+  margin-top: 200px;
+  font-size: 150px;
+  margin-bottom: 75px;
+  color: white;
+  text-shadow: 0px 0px 10px gray;
+  text-transform: uppercase;
+  font-family: 'Hammersmith One', sans-serif;
+}
+
+.dissensium-home-link {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  &:hover {
+    color: white;
+  }
+}

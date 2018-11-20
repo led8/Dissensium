@@ -4,10 +4,9 @@ class SolutionsController < ApplicationController
     @solution = Solution.new(solution_params)
     @solution.issue = Issue.find(params[:issue_id])
     @solution.user = current_user
-    @solution.save
 
     if @solution.save
-      # redirect_to new_issue_path(@issue)
+      redirect_to issue_path(@solution[:issue_id])
     else
       render 'issues/new'
     end
