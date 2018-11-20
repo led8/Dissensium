@@ -10,4 +10,9 @@ Rails.application.routes.draw do
       get 'results'
     end
   end
+
+  resources :chat_rooms, only: [:show] do
+    resources :messages, only: [:create]
+  end
+
 end

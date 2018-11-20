@@ -1,0 +1,5 @@
+<div class="container">
+  <div class="message <%= message.from?(current_user) ? "right" : "" %>">
+    <div class="message-content"><%= message.content %></div>
+  </div>
+</div>
