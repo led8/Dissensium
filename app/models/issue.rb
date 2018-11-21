@@ -3,4 +3,6 @@ class Issue < ApplicationRecord
   has_many :solutions
 
   validates :title, presence: true
+
+  mount_uploader :support, PhotoUploader
 end
