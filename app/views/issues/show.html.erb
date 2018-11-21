@@ -4,7 +4,7 @@
 <div class="container">
   <h1 class="text-white"><%= @issue.title %></h1>
 
-  <% if !@issue.support.nil? %>
+  <% if !@issue.support.file.nil? %>
     <div class="row">
       <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
         <h3>Issue support</h3>
