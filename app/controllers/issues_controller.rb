@@ -1,7 +1,7 @@
 class IssuesController < ApplicationController
 
   def show
-    @issue = Issue.find(params[:id])
+    @issue = Issue.includes(solutions: :user).find(params[:id])
     @solution = Solution.new
     @vote = Vote.new
   end
