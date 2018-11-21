@@ -4,7 +4,6 @@ class User < ApplicationRecord
   has_many :votes
   has_many :issues
   has_many :solutions
-  has_many :messages
 
   validates :username, presence: true, uniqueness: true
 
