@@ -10,6 +10,8 @@ gem 'rails', '5.2.1'
 gem 'redis'
 gem 'cloudinary'
 gem 'carrierwave', '~> 1.2'
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
 
 gem 'faker', :git => 'https://github.com/stympy/faker.git', :branch => 'master'
 gem 'autoprefixer-rails'
