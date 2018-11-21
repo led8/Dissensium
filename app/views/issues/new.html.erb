@@ -8,6 +8,8 @@
       <%= simple_form_for @issue do |f| %>
         <%= f.label :Meeting_object, class: "label-style" %>
         <%= f.input_field :title, class: "form-control" %>
+        <%= f.input :support %>
+        <%= f.input :support_cache, as: :hidden %>
         <%= f.button :submit, 'Create the meeting', class: "form-control button-style" %>
       <% end %>
     </div>

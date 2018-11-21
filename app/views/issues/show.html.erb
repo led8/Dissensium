@@ -4,6 +4,13 @@
 <div class="container">
   <h1 class="text-white"><%= @issue.title %></h1>
 
+  <div class="row">
+    <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
+      <h3>Issue support</h3>
+      <%= cl_image_tag @issue.support, height: 300, width: 400, crop: :fill %>
+    </div>
+  </div>
+
   <% if !@issue.solutions.empty? %>
     <div class="row">
       <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
