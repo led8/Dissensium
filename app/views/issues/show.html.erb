@@ -3,10 +3,8 @@
 
 <div class="container">
   <h1 class="text-white"><%= @issue.title %></h1>
-
-
     <div class="row hidden-container">
-      l<div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
+      <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
         <h3>Creative asset list</h3>
         <div class="container-overflow">
           <% @issue.solutions.reverse.each do |solution| %>
@@ -16,10 +14,8 @@
       </div>
     </div>
 
-
   <div class="row">
     <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
-
       <%= simple_form_for [@issue, @solution], remote: true, html: {autocomplete: "off" } do |f| %>
         <%= f.label :My_solution, class: "label-style" %>
         <%= f.input_field :content, class: "form-control" %>
