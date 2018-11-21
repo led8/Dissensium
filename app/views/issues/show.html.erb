@@ -51,6 +51,8 @@
            };
         },
         received: (data) => {
+          var solutions = document.querySelector(".hidden-container")
+          solutions.classList.remove("hidden-container")
            var current_user_id = <%= current_user.id %>;
           var class_message = 'message'
           if (current_user_id == data.current_user_id) {
