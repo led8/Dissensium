@@ -23,6 +23,13 @@ puts 'Creating 10 fake users...'
   )
  end
 
+   User.create(
+    username: "polo",
+    email: "polo@gmail.com",
+    created_at: Time.current,
+    password: "123456"
+  )
+
 puts '*' * 30
 puts 'Creating random issue for users...'
 
