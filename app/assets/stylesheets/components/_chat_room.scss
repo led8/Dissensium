@@ -20,16 +20,11 @@
     }
   }
 }
-.message-content {
+.solution-content {
   background-color: #F7F7F7;
   border-radius: 3px;
   margin: 0 10px;
   padding: 11px 10px 8px 10px;
-}
-.avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
 }
 
 #create-message {
@@ -38,10 +33,10 @@
   margin-bottom: 20px;
   border: 1px solid #ececec;
 }
-.message_content {
+.solution_content {
   margin-bottom: 0;
 }
-input.form-control {
+input.chat-form {
   border: 1px solid #ECECEC;
   box-shadow: none;
   font-size: 14px;

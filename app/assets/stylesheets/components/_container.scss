@@ -3,7 +3,6 @@
   padding: 30px;
   border-radius: 2px;
   box-shadow: 0px 0px 10px gray;
-  text-transform: uppercase;
   font-family: 'Hammersmith One', sans-serif;
 }
 
@@ -13,4 +12,11 @@
   border: 1px solid #cccccc;
   padding: 10px;
   border-radius: 2px;
+}
+
+.hidden-container{
+  display:none;
+}
+.show-container{
+  display:block;
 }
