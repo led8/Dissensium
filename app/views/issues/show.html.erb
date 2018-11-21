@@ -15,24 +15,22 @@
 
   <% if !@issue.solutions.empty? %>
     <div class="row">
+
+    <div class="row hidden-container">
+
       <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
         <h3>Creative asset list</h3>
         <div class="container-overflow">
-          <% @issue.solutions.each do |solution| %>
-            <p><%= solution.content %>
-            <%= simple_form_for [solution, @vote] do |f| %>
-              <%= f.collection_radio_buttons :rating, [[5, "Excellent"], [4, "Très bien"], [3, "Bien"], [2, "Passable"], [1, "Insuffisant"]], :first, :last %>
-            <% end %>
-            </p>
+          <% @issue.solutions.reverse.each do |solution| %>
+           <%= render "solutions/solution", solution: solution, user_is_solutions_author: solution.user == current_user %>
           <% end %>
         </div>
       </div>
     </div>
-  <% end %>
 
   <div class="row">
     <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
-      <%= simple_form_for [@issue, @solution] do |f| %>
+      <%= simple_form_for [@issue, @solution], remote: true, html: {autocomplete: "off" } do |f| %>
         <%= f.label :My_solution, class: "label-style" %>
         <%= f.input_field :content, class: "form-control" %>
         <%= f.button :submit, 'Send my solution', class: "form-control button-style" %>
@@ -40,3 +38,41 @@
     </div>
   </div>
 </div>
+<% content_for :after_js do %>
+  <script>
+    App.cable.subscriptions.create(
+      {
+        channel: 'IssuesChannel',
+        issue_id: <%= @issue.id %>
+      },
+      {
+        connected: () => {
+          scrollLastMessageIntoView();
+          var testSolutionContent = document.querySelector(".solution-content")
+            if (testSolutionContent != null ) {
+              var solutions = document.querySelector(".hidden-container")
+              solutions.classList.remove("hidden-container")
+           };
+        },
+        received: (data) => {
+          var solutions = document.querySelector(".hidden-container")
+          solutions.classList.remove("hidden-container")
+
+          var current_user_id = <%= current_user.id %>;
+          var class_message = 'message'
+          if (current_user_id == data.current_user_id) {
+            class_message = 'message right'
+          };
+
+          var solutionsContainer = document.querySelector('.container-overflow');
+          solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
+
+          var input = document.querySelector('#solution_content');
+          input.value = '';
+          input.blur();
+          scrollLastMessageIntoView();
+        }
+      }
+    )
+  </script>
+<% end %>

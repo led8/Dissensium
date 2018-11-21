@@ -6,9 +6,15 @@ class SolutionsController < ApplicationController
     @solution.user = current_user
 
     if @solution.save
-      redirect_to issue_path(@solution[:issue_id])
+      respond_to do |format|
+        format.html { redirect_to issue_path(@issue) }
+        format.js
+      end
     else
-      render 'issues/new'
+      respond_to do |format|
+        format.html { render "issues/show" }
+        format.js
+      end
     end
   end
 
