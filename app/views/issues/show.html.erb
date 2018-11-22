@@ -2,14 +2,20 @@
 <%= render 'shared/flashes' %>
 
 <div class="container">
+  <div class="landing-container">
+    <h1 class="text-white text-center"><%= @issue.title %></h1>
+    <div class="white-container landing-container">
+      <div class=" btn btn-start button-style">Start</div>
+    </div>
+  </div>
+  
   <h1 class="text-white"><%= @issue.title %></h1>
-
   <% if !@issue.support.file.nil? %>
     <div class="row">
       <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
-        <h3>Issue support</h3>
+        <h3 class= "text-center">Issue support</h3>
         <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
-          <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale %>
+          <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale, class: "support" %>
         <% end %>
       </div>
     </div>
@@ -27,7 +33,7 @@
   </div>
 
   <div class="row">
-    <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
+    <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5 mb-5">
       <%= simple_form_for [@issue, @solution], remote: true, html: {autocomplete: "off" } do |f| %>
         <%= f.label :My_solution, class: "label-style" %>
         <%= f.input_field :content, class: "form-control" %>
@@ -61,8 +67,8 @@
         },
         received: (data) => {
           if (document.querySelector(".hidden-container") != null){
-          var solutions = document.querySelector(".hidden-container")
-          solutions.classList.remove("hidden-container")
+            var solutions = document.querySelector(".hidden-container")
+            solutions.classList.remove("hidden-container")
           };
           var current_user_id = <%= current_user.id %>;
           var class_message = 'message'
@@ -75,7 +81,7 @@
           input.value = '';
           input.blur();
           scrollLastMessageIntoView();
-        }
+        },
       }
     )
     <% end %>

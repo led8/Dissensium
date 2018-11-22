@@ -4,8 +4,10 @@
 
 .alert {
   margin: 0;
+  width: 100vw;
   text-align: center;
   color: white;
+  position:absolute
 }
 .alert-info {
   background: $green;

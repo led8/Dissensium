@@ -4,6 +4,7 @@
   border-radius: 2px;
   box-shadow: 0px 0px 10px gray;
   font-family: 'Hammersmith One', sans-serif;
+  margin-top: 20px;
 }
 
 .container-margin {
@@ -35,4 +36,13 @@
 
 .hidden-container{
   display:none;
+}
+
+.landing-container{
+  min-height:calc(100vh - 165px);
+  padding: 20px 0px;
+  position: relative;
+}
+.support{
+  max-width: 100%;
 }

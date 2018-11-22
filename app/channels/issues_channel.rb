@@ -13,4 +13,7 @@ class IssuesChannel < ApplicationCable::Channel
     #   action: "unsuscribed"
     # })
   end
+  def appear(data)
+    current_user.appear on: data['appearing_on']
+  end
 end
