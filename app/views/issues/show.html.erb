@@ -2,17 +2,13 @@
 <%= render 'shared/flashes' %>
 
 <div class="container">
-<div class="landing-container">
-  <h1 class="text-white text-center"><%= @issue.title %></h1>
-
-
-  <div class="white-container landing-container">
-    <div class=" btn btn-start button-style">Start</div>
+  <div class="landing-container">
+    <h1 class="text-white text-center"><%= @issue.title %></h1>
+    <div class="white-container landing-container">
+      <div class=" btn btn-start button-style">Start</div>
+    </div>
   </div>
-</div>
-
-
-
+  
   <h1 class="text-white"><%= @issue.title %></h1>
   <% if !@issue.support.file.nil? %>
     <div class="row">
@@ -29,7 +25,7 @@
     <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
       <h3>Creative asset list</h3>
       <div class="container-overflow">
-        <% @issue.solutions.reverse.each do |solution| %>
+        <% @issue.solutions.each do |solution| %>
           <%= render "solutions/solution", solution: solution, user_is_solutions_author: solution.user == current_user %>
         <% end %>
       </div>
@@ -46,8 +42,14 @@
     </div>
   </div>
 </div>
+
 <% content_for :after_js do %>
   <script>
+
+
+    <% if @issue.user == current_user %>
+      alert("you are the leader")
+    <% else %>
     App.cable.subscriptions.create(
       {
         channel: 'IssuesChannel',
@@ -55,6 +57,7 @@
       },
       {
         connected: () => {
+          alert('FUCKER')
           scrollLastMessageIntoView();
           var testSolutionContent = document.querySelector(".solution-content")
           if (testSolutionContent != null ) {
@@ -81,5 +84,6 @@
         },
       }
     )
+    <% end %>
   </script>
 <% end %>
