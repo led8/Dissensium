@@ -10,11 +10,15 @@
   margin-top: 20vh;
 }
 
+.container-margin-signup {
+  margin-top: 10vh;
+}
+
 .transparent-container {
   background: transparent;
   padding: 30px;
-  border-radius: 2px;
-  border: 1px solid rgba(255,255,255, 0.3);
+  border-radius: 3px;
+  border: 2px solid rgba(255,255,255, 0.3);
   font-family: 'Hammersmith One', sans-serif;
   & h2 {
     color: white;
