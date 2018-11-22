@@ -36,8 +36,14 @@
     </div>
   </div>
 </div>
+
 <% content_for :after_js do %>
   <script>
+
+
+    <% if @issue.user == current_user %>
+      alert("you are the leader")
+    <% else %>
     App.cable.subscriptions.create(
       {
         channel: 'IssuesChannel',
@@ -45,6 +51,7 @@
       },
       {
         connected: () => {
+          alert('FUCKER')
           scrollLastMessageIntoView();
           var testSolutionContent = document.querySelector(".solution-content")
           if (testSolutionContent != null ) {
@@ -71,5 +78,6 @@
         }
       }
     )
+    <% end %>
   </script>
 <% end %>

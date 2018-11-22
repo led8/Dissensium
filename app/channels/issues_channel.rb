@@ -1,10 +1,16 @@
 class IssuesChannel < ApplicationCable::Channel
   def subscribed
     stream_from "issue_#{params[:issue_id]}"
-    ConnectedList.add(uid)
+    ActionCable.server.broadcast("issue_#{params[:issue_id]}", {
+      current_user_id: current_user.id,
+      action: "subscribed"
+    })
   end
 
   def unsubscribed
-    ConnectedList.remove(uid)
+    # ActionCable.server.broadcast("issue_#{issue.id}", {
+    #   current_user_id: current_user.id,
+    #   action: "unsuscribed"
+    # })
   end
 end
