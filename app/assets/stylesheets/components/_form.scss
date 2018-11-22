@@ -1,3 +1,8 @@
+.label-style {
+  color: #777676;
+  font-family: 'Montserrat', sans-serif;;
+}
+
 .label-style-devise {
   color: white;
   font-family: 'Montserrat', sans-serif;
@@ -6,22 +11,22 @@
 .button-style {
   margin-top: 30px;
   font-family: 'Montserrat', sans-serif;
-  background: white;
-  border: 1px solid black;
-  color: black;
+  background: #00bf8f;
+  color: white;
   &:hover {
+    // color: #00bf8f;
     background: #00e6ac;
-    color: white;
-    border-color: #00e6ac;
+    // border-color: #00bf8f;
   }
 }
 
 .devise-style {
   margin-bottom: 10px;
   background: transparent;
-  // &:hover {
-  //   background: transparent;
-  // }
+  &:focus {
+    background: rgba(255,255,255, 0.3);
+    caret-color: white;
+  }
 }
 
 .button-style-login {
