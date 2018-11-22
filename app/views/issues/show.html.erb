@@ -19,7 +19,7 @@
     <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
       <h3>Creative asset list</h3>
       <div class="container-overflow">
-        <% @issue.solutions.reverse.each do |solution| %>
+        <% @issue.solutions.each do |solution| %>
           <%= render "solutions/solution", solution: solution, user_is_solutions_author: solution.user == current_user %>
         <% end %>
       </div>
@@ -47,24 +47,24 @@
         connected: () => {
           scrollLastMessageIntoView();
           var testSolutionContent = document.querySelector(".solution-content")
-            if (testSolutionContent != null ) {
-              var solutions = document.querySelector(".hidden-container")
-              solutions.classList.remove("hidden-container")
-           };
+          if (testSolutionContent != null ) {
+            var solutions = document.querySelector(".hidden-container")
+            solutions.classList.remove("hidden-container")
+          };
         },
         received: (data) => {
           if (document.querySelector(".hidden-container") != null){
           var solutions = document.querySelector(".hidden-container")
           solutions.classList.remove("hidden-container")
           };
-           var current_user_id = <%= current_user.id %>;
+          var current_user_id = <%= current_user.id %>;
           var class_message = 'message'
           if (current_user_id == data.current_user_id) {
             class_message = 'message right'
           };
-           var solutionsContainer = document.querySelector('.container-overflow');
+          var solutionsContainer = document.querySelector('.container-overflow');
           solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
-           var input = document.querySelector('#solution_content');
+          var input = document.querySelector('#solution_content');
           input.value = '';
           input.blur();
           scrollLastMessageIntoView();
