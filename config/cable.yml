@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV["redis://rediscloud:vCAEaFRXQhNgxapqygtAJ5Xl4hCPDP7T@redis-13656.c72.eu-west-1-2.ec2.cloud.redislabs.com:13656"] %>
+  url: <%= ENV["REDISCLOUD_URL"] %>
   channel_prefix: Dissensium_production
