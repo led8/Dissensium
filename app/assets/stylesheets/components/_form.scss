@@ -26,10 +26,11 @@
   &:focus {
     background: rgba(255,255,255, 0.3);
     caret-color: white;
+    color: white;
   }
 }
 
-.button-style-login {
+.button-style-log {
   margin-top: 30px;
   font-family: 'Montserrat', sans-serif;
   background: transparent;
@@ -55,6 +56,13 @@
   color: white;
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
+}
+
+.user_avatar {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  margin-top: 50px;
 }
 
 .button-style-signup {
