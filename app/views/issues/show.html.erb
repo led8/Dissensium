@@ -2,14 +2,24 @@
 <%= render 'shared/flashes' %>
 
 <div class="container">
-  <h1 class="text-white"><%= @issue.title %></h1>
+<div class="landing-container">
+  <h1 class="text-white text-center"><%= @issue.title %></h1>
 
-  <% if !@issue.support.nil? %>
+
+  <div class="white-container landing-container">
+    <div class=" btn btn-start button-style">Start</div>
+  </div>
+</div>
+
+
+
+  <h1 class="text-white"><%= @issue.title %></h1>
+  <% if !@issue.support.file.nil? %>
     <div class="row">
       <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
-        <h3>Issue support</h3>
+        <h3 class= "text-center">Issue support</h3>
         <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
-          <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale %>
+          <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale, class: "support" %>
         <% end %>
       </div>
     </div>
@@ -27,7 +37,7 @@
   </div>
 
   <div class="row">
-    <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
+    <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5 mb-5">
       <%= simple_form_for [@issue, @solution], remote: true, html: {autocomplete: "off" } do |f| %>
         <%= f.label :My_solution, class: "label-style" %>
         <%= f.input_field :content, class: "form-control" %>
@@ -47,28 +57,28 @@
         connected: () => {
           scrollLastMessageIntoView();
           var testSolutionContent = document.querySelector(".solution-content")
-            if (testSolutionContent != null ) {
-              var solutions = document.querySelector(".hidden-container")
-              solutions.classList.remove("hidden-container")
-           };
+          if (testSolutionContent != null ) {
+            var solutions = document.querySelector(".hidden-container")
+            solutions.classList.remove("hidden-container")
+          };
         },
         received: (data) => {
           if (document.querySelector(".hidden-container") != null){
-          var solutions = document.querySelector(".hidden-container")
-          solutions.classList.remove("hidden-container")
+            var solutions = document.querySelector(".hidden-container")
+            solutions.classList.remove("hidden-container")
           };
-           var current_user_id = <%= current_user.id %>;
+          var current_user_id = <%= current_user.id %>;
           var class_message = 'message'
           if (current_user_id == data.current_user_id) {
             class_message = 'message right'
           };
-           var solutionsContainer = document.querySelector('.container-overflow');
+          var solutionsContainer = document.querySelector('.container-overflow');
           solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
-           var input = document.querySelector('#solution_content');
+          var input = document.querySelector('#solution_content');
           input.value = '';
           input.blur();
           scrollLastMessageIntoView();
-        }
+        },
       }
     )
   </script>
