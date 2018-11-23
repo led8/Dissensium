@@ -2,12 +2,14 @@
 <%= render 'shared/flashes' %>
 
 <div class="container">
-  <div class="landing-container">
-    <h1 class="text-white text-center"><%= @issue.title %></h1>
-    <div class="white-container landing-container">
-      <div class=" btn btn-start button-style">Start</div>
+  <% if @issue.user == current_user %>
+    <div class="landing-container">
+      <h1 class="text-white text-center"><%= @issue.title %></h1>
+      <div class="white-container landing-container">
+        <div class=" btn btn-start button-style">Start</div>
+      </div>
     </div>
-  </div>
+  <% end %>
 
   <h1 class="text-white"><%= @issue.title %></h1>
   <% if !@issue.support.file.nil? %>
