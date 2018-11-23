@@ -1,6 +1,6 @@
 .label-style {
   color: #777676;
-  font-family: 'Montserrat', sans-serif;;
+  font-family: 'Montserrat', sans-serif;
 }
 
 .label-style-devise {
@@ -20,9 +20,14 @@
   }
 }
 
+.devise-meeting-style {
+  margin-bottom: 50px;
+}
+
 .devise-style {
   margin-bottom: 10px;
   background: transparent;
+  color: white;
   &:focus {
     background: rgba(255,255,255, 0.3);
     caret-color: white;
