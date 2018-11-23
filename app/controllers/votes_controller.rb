@@ -8,7 +8,7 @@ class VotesController < ApplicationController
     if @vote.save
       redirect_to issue_path(@vote.solution[:issue_id])
     else
-      render 'issues/new'
+      redirect_to issue_path(@vote.solution[:issue_id])
     end
   end
 
