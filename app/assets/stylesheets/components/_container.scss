@@ -26,6 +26,14 @@
   }
 }
 
+.opacity-container{
+  background: rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  min-height: 200px;
+  font-family: 'Hammersmith One', sans-serif;
+  color: white;
+}
+
 .container-overflow {
   overflow: scroll;
   height: 250px;
@@ -46,3 +54,7 @@
 .support{
   max-width: 100%;
 }
+.margin-x-15{
+  margin: 0px 15px;
+}
+

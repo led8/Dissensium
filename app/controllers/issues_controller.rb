@@ -16,7 +16,6 @@ class IssuesController < ApplicationController
 
     if @issue.save
       redirect_to issue_path(@issue)
-
     else
       render :new
     end
