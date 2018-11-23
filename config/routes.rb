@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
+
   root to: 'pages#home'
 
+  resources :users, only: [:show]
   resources :issues, only: [ :new, :create, :show ], shallow: true do
     resources :solutions, only: [ :new, :create ] do
       resources :votes, only: [ :new, :create ]
