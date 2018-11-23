@@ -20,4 +20,8 @@ class Solution < ApplicationRecord
       current_user_id: user.id
     })
   end
+
+  def solution_average_rating
+    self.votes.average(:rating) * 20 unless self.votes.average(:rating).nil?
+  end
 end
