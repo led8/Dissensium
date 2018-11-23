@@ -3,11 +3,11 @@
 
 <div class="container">
   <div class="row">
-    <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container container-margin">
+    <div data-aos="zoom-in" class="col-xs-12 offset-md-3 col-md-6 white-container container-margin">
       <h2 class="text-center">Create a meeting</h2>
       <%= simple_form_for @issue do |f| %>
         <%= f.label :Meeting_object, class: "label-style" %>
-        <%= f.input_field :title, class: "form-control" %>
+        <%= f.input_field :title, class: "form-control devise-meeting-style" %>
         <%= f.input :support %>
         <%= f.input :support_cache, as: :hidden %>
         <%= f.button :submit, 'Create the meeting', class: "form-control button-style" %>

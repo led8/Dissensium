@@ -25,6 +25,7 @@
 }
 
 .title-dissensium {
+  // display: none;
   margin-top: 200px;
   font-size: 11vw;
   color: white;
@@ -34,11 +35,93 @@
 }
 
 .dissensium-home-link {
+  // display: none;
   color: white;
   font-family: 'Montserrat', sans-serif;
   &:hover {
     color: white;
     text-decoration: none;
     font-weight: bold;
+  }
+}
+
+.about-content {
+  background: rgba(0,0,0, 0.3);
+  border-radius: 0 3px;
+  border: 1px solid white;
+  padding: 30px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  position: absolute;
+  width: 100vh;
+  top: 14.5vh;
+  height: 71vh;
+  left: -1000px;
+  transition: all 2s;
+  & p {
+    position: absolute;
+    opacity: 0.8;
+    font-size: 15px;
+    top: 10vh;
+  }
+  & span {
+    font-size: 30px;
+    position: absolute;
+    right: 4vh;
+    top: 1vh;
+  }
+}
+
+.concept-content {
+  background: rgba(0,0,0, 0.3);
+  border-radius: 0 3px;
+  border: 1px solid white;
+  padding: 30px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  position: absolute;
+  width: 100vh;
+  top: 14.5vh;
+  height: 71vh;
+  left: -1000px;
+  transition: all 2s;
+  & p {
+    position: absolute;
+    opacity: 0.8;
+    font-size: 15px;
+    top: 10vh;
+  }
+  & span {
+    font-size: 30px;
+    position: absolute;
+    right: 4vh;
+    top: 1vh;
+  }
+}
+
+.contact-content {
+  background: rgba(0,0,0, 0.3);
+  border-radius: 0 3px;
+  border: 1px solid white;
+  padding: 30px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  position: absolute;
+  width: 100vh;
+  top: 14.5vh;
+  height: 71vh;
+  left: -1000px;
+  transition: all 2s;
+  & p {
+    position: absolute;
+    opacity: 0.8;
+    font-size: 15px;
+    top: 10vh;
+  }
+  & span {
+    font-size: 30px;
+    position: absolute;
+    right: 4vh;
+    top: 1vh;
   }
 }

@@ -2,7 +2,7 @@
 <%= render 'shared/flashes' %>
 
 <div class="home-list">
-  <ul>
+  <ul id="list">
     <li><div class="list-hover">About</div></li>
     <li><div class="list-hover">Concept</div></li>
     <li><div class="list-hover">Contact</div></li>
@@ -10,6 +10,21 @@
 </div>
 
 <div class="container">
+  <div class="about-content">
+    <p>ABOUT DISSENSIUM</p>
+    <button type="button" class="btn btn-link text-white"><span class="back-button"><</span></button>
+  </div>
+
+  <div class="concept-content">
+    <p>ABOUT CONCEPT</p>
+    <button type="button" class="btn btn-link text-white"><span class="back-button"><</span></button>
+  </div>
+
+  <div class="contact-content">
+    <p>CONTACT</p>
+    <button type="button" class="btn btn-link text-white"><span class="back-button"><</span></button>
+  </div>
+
  <h1 class="title-dissensium text-center ">Dissensium</h1>
 
  <div class="d-flex justify-content-around">
@@ -17,3 +32,58 @@
    <%= link_to "Join a meeting", root_path, class: "dissensium-home-link" %>
  </div>
 </div>
+
+<script>
+  const list = document.querySelectorAll("#list .list-hover");
+  const title = document.querySelector(".title-dissensium");
+  const links = document.querySelectorAll(".d-flex .dissensium-home-link");
+  const about = document.querySelector(".about-content");
+  const concept = document.querySelector(".concept-content");
+  const contact = document.querySelector(".contact-content");
+  const back = document.querySelectorAll(".back-button");
+
+
+  list.forEach((li) => {
+    li.addEventListener("click", (event) => {
+      if (event.currentTarget === list[0]) {
+        title.style.display = "none";
+        links.forEach((link) => {
+          link.style.display = "none";
+        });
+        about.style.left = "120px";
+        concept.style.left = "-1000px";
+        contact.style.left = "-1000px";
+      }
+      else if (event.currentTarget === list[1]) {
+        title.style.display = "none";
+        links.forEach((link) => {
+          link.style.display = "none";
+        });
+        concept.style.left = "120px";
+        about.style.left = "-1000px";
+        contact.style.display = "-1000px";
+      }
+      else {
+        title.style.display = "none";
+        links.forEach((link) => {
+          link.style.display = "none";
+        });
+        contact.style.left = "120px";
+        about.style.left = "-1000px";
+        concept.style.left = "-1000px";
+      }
+    });
+  });
+
+  back.forEach((ba) => {
+    ba.addEventListener("click", (event) => {
+      about.style.left = "-1000px";
+      concept.style.left = "-1000px";
+      contact.style.left = "-1000px";
+    title.style.display = "block";
+        links.forEach((link) => {
+          link.style.display = "block";
+        });
+    });
+  });
+</script>
