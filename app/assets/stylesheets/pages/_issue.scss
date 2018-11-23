@@ -1,0 +1,53 @@
+.issue-list {
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 5px;
+  padding-right: 15px;
+  & li {
+    padding: 10vh 0px;
+    color: white;
+    list-style: circle;
+  }
+  & li .list-hover {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    opacity: 0.5;
+  }
+  & li .list-hover:hover {
+    opacity: 1;
+    cursor: pointer;
+    list-style: circle;
+    font-weight: bold;
+  }
+}
+
+.instructions-content {
+  background: rgba(0,0,0, 0.3);
+  border-radius: 0 3px;
+  border: 1px solid white;
+  padding: 30px;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  position: absolute;
+  width: 100vh;
+  top: 14.5vh;
+  height: 71vh;
+  left: -1000px;
+  transition: all 2s;
+  z-index: 1;
+  & p {
+    position: absolute;
+    opacity: 0.8;
+    font-size: 15px;
+    top: 10vh;
+  }
+  & span {
+    font-size: 30px;
+    position: absolute;
+    right: 4vh;
+    top: 1vh;
+  }
+}
