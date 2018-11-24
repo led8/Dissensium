@@ -2,15 +2,11 @@
 <%= render 'shared/flashes' %>
 
 <div class="container">
-  <% if @issue.user == current_user %>
-    <div class="landing-container">
-      <h1 class="text-white text-center"><%= @issue.title %></h1>
-      <div class="white-container landing-container">
-        <div class=" btn btn-start button-style">Start</div>
-      </div>
-    </div>
-  <% end %>
-
+  <div id="start-page" class=""> <!-- hidden-container -->
+    <% if @issue.user == current_user && @issue.solutions.count.zero? %>
+      <%= render 'issues/start_page' %>
+    <% end %>
+  </div>
   <h1 class="text-white"><%= @issue.title %></h1>
   <% if !@issue.support.file.nil? %>
     <div class="row">
@@ -26,7 +22,7 @@
   <div class="row hidden-container">
     <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
       <h3>Creative asset list</h3>
-      <div class="container-overflow">
+      <div id="chat-container" class="container-overflow">
         <% @issue.solutions.each do |solution| %>
           <%= render "solutions/solution", solution: solution, user_is_solutions_author: solution.user == current_user %>
         <% end %>
@@ -49,42 +45,42 @@
   <script>
 
 
-    <% if @issue.user == current_user %>
-      alert("you are the leader")
-      App.cable.subscriptions.create(
-        {
-          channel: 'IssuesChannel',
-          issue_id: <%= @issue.id %>
-        },
-        {
-          connected: () => {
-            var testSolutionContent = document.querySelector(".solution-content")
-            if (testSolutionContent != null ) {
-              var solutions = document.querySelector(".hidden-container")
-              solutions.classList.remove("hidden-container")
-            };
-            scrollLastMessageIntoView();
-          },
-          received: (data) => {
-            if (document.querySelector(".hidden-container") != null ){
-              var solutions = document.querySelector(".hidden-container")
-              solutions.classList.remove("hidden-container")
-            };
-            var current_user_id = <%= current_user.id %>;
-            var class_message = 'message'
-            if (current_user_id == data.current_user_id) {
-              class_message = 'message right'
-            };
-            var solutionsContainer = document.querySelector('.container-overflow');
-            solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
-            var input = document.querySelector('#solution_content');
-            input.value = '';
-            input.blur();
-            scrollLastMessageIntoView();
-          }
-        }
-      )
-    <% else %>
+    //<#%= if @issue.user == current_user %>
+      // alert("you are the leader")
+      // App.cable.subscriptions.create(
+      //   {
+      //     channel: 'IssuesChannel',
+      //     issue_id: <#%= @issue.id %>
+      //   },
+      //   {
+      //     connected: () => {
+      //       var testSolutionContent = document.querySelector(".solution-content")
+      //       if (testSolutionContent != null ) {
+      //         var solutions = document.querySelector(".hidden-container")
+      //         solutions.classList.remove("hidden-container")
+      //       };
+      //       scrollLastMessageIntoView();
+      //     },
+      //     received: (data) => {
+      //       if (document.querySelector(".hidden-container") != null ){
+      //         var solutions = document.querySelector(".hidden-container")
+      //         solutions.classList.remove("hidden-container")
+      //       };
+      //       var current_user_id = <%= current_user.id %>;
+      //       var class_message = 'message'
+      //       if (current_user_id == data.current_user_id) {
+      //         class_message = 'message right'
+      //       };
+      //       var solutionsContainer = document.querySelector('.container-overflow');
+      //       solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
+      //       var input = document.querySelector('#solution_content');
+      //       input.value = '';
+      //       input.blur();
+      //       scrollLastMessageIntoView();
+      //     }
+      //   }
+      // )
+    //<#% else %>
     App.cable.subscriptions.create(
       {
         channel: 'IssuesChannel',
@@ -92,19 +88,35 @@
       },
       {
         connected: () => {
-          var testSolutionContent = document.querySelector(".solution-content")
-          if (testSolutionContent != null ) {
-            var solutions = document.querySelector(".hidden-container")
-            solutions.classList.remove("hidden-container")
-          };
-          scrollLastMessageIntoView();
+          // var testSolutionContent = document.querySelector(".solution-content")
+          // if (testSolutionContent != null ) {
+          //   var solutions = document.querySelector(".hidden-container")
+          //   solutions.classList.remove("hidden-container")
+          // };
+          // scrollLastMessageIntoView();
         },
         received: (data) => {
-          console.log('FUCKER')
-          if (document.querySelector(".hidden-container") != null){
-            var solutions = document.querySelector(".hidden-container")
-            solutions.classList.remove("hidden-container")
+
+          const owner_issue_id = <%= @issue.user.id %>
+          console.log('owner_issue_id :');
+          console.log(owner_issue_id)
+
+          const current_broadcaster_id = data.current_user_id;
+          console.log('current_broadcaster_id :');
+          console.log(current_broadcaster_id);
+
+          const partial_solution = data.solution_partial
+          console.log('Partial de la solution :');
+          console.log(partial_solution == null)
+
+          var solutions = document.getElementById("chat-container")
+
+          console.log(solutions.children.first);
+
+          if (solutions.children.length != 0 || data.solution_partial != null){
+            solutions.parentElement.parentElement.classList.remove("hidden-container")
           };
+
           var current_user_id = <%= current_user.id %>;
           var class_message = 'message'
           if (current_user_id == data.current_user_id) {
@@ -119,6 +131,6 @@
         }
       }
     )
-    <% end %>
+    //<#% end %>
   </script>
 <% end %>
