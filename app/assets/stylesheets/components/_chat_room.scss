@@ -15,8 +15,9 @@
   margin-bottom: 10px;
   &.right {
     flex-direction: row-reverse;
-    .message-content {
-      background-color: #677C7F;
+    .solution-content {
+      text-align: right;
+      background-color: #65cfed;
     }
   }
 }

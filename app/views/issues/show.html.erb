@@ -101,29 +101,33 @@
           console.log('owner_issue_id :');
           console.log(owner_issue_id)
 
+          const current_user_id = <%= current_user.id %>;
+
           const current_broadcaster_id = data.current_user_id;
           console.log('current_broadcaster_id :');
           console.log(current_broadcaster_id);
 
           const partial_solution = data.solution_partial
-          console.log('Partial de la solution :');
+          console.log('le Partial de la solution est :');
           console.log(partial_solution == null)
+
+          // console.log(solutions.children.first);
 
           var solutions = document.getElementById("chat-container")
 
-          console.log(solutions.children.first);
-
           if (solutions.children.length != 0 || data.solution_partial != null){
             solutions.parentElement.parentElement.classList.remove("hidden-container")
+            // Pour afficher sa propre réponse d'une couleur différente
+              var class_message = 'message'
+              if (current_user_id == current_broadcaster_id) {
+                class_message = 'message right'
+              };
+            if (data.solution_partial != null){
+              var solutionsContainer = document.querySelector('.container-overflow');
+              solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
+            };
           };
 
-          var current_user_id = <%= current_user.id %>;
-          var class_message = 'message'
-          if (current_user_id == data.current_user_id) {
-            class_message = 'message right'
-          };
-          var solutionsContainer = document.querySelector('.container-overflow');
-          solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
           var input = document.querySelector('#solution_content');
           input.value = '';
           input.blur();
