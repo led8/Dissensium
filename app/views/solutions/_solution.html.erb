@@ -1,10 +1,5 @@
   <div class="message <%= user_is_solutions_author ? "right" : "" %>">
     <div class="solution-content">
-
-     <%= solution.content %>:<%= solution.solution_average_rating %>%
-        <%= simple_form_for [solution, Vote.new] do |f| %>
-          <%= f.collection_radio_buttons :rating, [[5, "5"], [4, "4"], [3, "3"], [2, "2"], [1, "1"]], :first, :last %>
-        <%= f.submit  %>
-      <% end %>
+      <%= solution.content %>:<%= solution.solution_average_rating %>
     </div>
   </div>
