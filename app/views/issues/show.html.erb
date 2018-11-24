@@ -10,7 +10,9 @@
 
   <h1 class="text-white"><%= @issue.title %></h1>
 
-  <%= render 'participants_list' %>
+  <% if @issue.user == current_user %>
+    <%= render 'participants_list' %>
+  <% end %>
 
   <% if !@issue.support.file.nil? %>
     <div class="row">
@@ -49,17 +51,19 @@
   <script>
 
   const start_meeting_btn = document.getElementById("start-meeting-btn");
-          console.log('Le bouton start est null ? :');
-          console.log(start_meeting_btn == null);
   // Tester si le bouton "start-meeting-btn" est affiché
   if (start_meeting_btn != null) {
     start_meeting_btn.addEventListener("click", (event) => {
       // LEADER : Cacher la banière de départ
       start_meeting_btn.parentElement.parentElement.classList.add("hidden-container");
+
+      <%= ActionCable.server.broadcast("issue_#{params[:issue_id]}", {
+        current_user_id: current_user.id,
+        message: "c'est partiiiiiiiiiii"
+      }) %>
+
     });
   };
-
-
 
 
     App.cable.subscriptions.create(
