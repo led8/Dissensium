@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :users, only: [:show]
-  resources :issues, only: [ :new, :create, :show ], shallow: true do
-    resources :solutions, only: [ :new, :create ] do
+  resources :issues, only: [ :new, :create, :show , :update], shallow: true do
+    resources :solutions, only: [ :new, :create] do
       resources :votes, only: [ :new, :create ]
     end
     member do

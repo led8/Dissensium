@@ -21,7 +21,6 @@ class SolutionsController < ApplicationController
   private
 
   def solution_params
-
     params.require(:solution).permit(:content)
   end
 end

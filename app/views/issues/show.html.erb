@@ -2,21 +2,25 @@
 <%= render 'shared/flashes' %>
 
 <div class="container">
-  <% if @issue.user == current_user %>
-    <div class="landing-container">
-      <h1 class="text-white text-center"><%= @issue.title %></h1>
-      <div class="white-container landing-container">
-        <div class=" btn btn-start button-style">Start</div>
-      </div>
-    </div>
-  <% end %>
+  <div id="start-page" class=""> <!-- hidden-container -->
+    <% if @issue.user == current_user && @issue.solutions.count.zero? %>
+      <%= render 'issues/start_page' %>
+    <% elsif @issue.user != current_user && @issue.solutions.count.zero? %>
+      <%= render 'issues/start_page_participant' %>
+    <% end %>
+  </div>
 
   <h1 class="text-white"><%= @issue.title %></h1>
+
+  <% if @issue.user == current_user %>
+    <%= render 'participants_list' %>
+  <% end %>
+
   <% if !@issue.support.file.nil? %>
     <div class="row">
       <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
         <h3 class= "text-center">Issue support</h3>
-        <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
+          <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
           <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale, class: "support" %>
         <% end %>
       </div>
@@ -26,7 +30,7 @@
   <div class="row hidden-container">
     <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
       <h3>Creative asset list</h3>
-      <div class="container-overflow">
+      <div id="chat-container" class="container-overflow">
         <% @issue.solutions.each do |solution| %>
           <%= render "solutions/solution", solution: solution, user_is_solutions_author: solution.user == current_user %>
         <% end %>
@@ -35,7 +39,7 @@
   </div>
 
   <div class="row">
-    <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5 mb-5">
+    <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5 mb-5">
       <%= simple_form_for [@issue, @solution], remote: true, html: {autocomplete: "off" } do |f| %>
         <%= f.label :My_solution, class: "label-style" %>
         <%= f.input_field :content, class: "form-control" %>
@@ -48,43 +52,16 @@
 <% content_for :after_js do %>
   <script>
 
+  // Gestion d'affichage de la start page pour le leader
+  const start_meeting_btn = document.getElementById("start-meeting-btn");
+  // Tester si le bouton "start-meeting-btn" est affiché
+  if (start_meeting_btn != null) {
+    start_meeting_btn.addEventListener("click", (event) => {
+      // LEADER : Cacher la banière de départ
+      start_meeting_btn.parentElement.parentElement.parentElement.classList.add("hidden-container");
+    });
+  };
 
-    <% if @issue.user == current_user %>
-      alert("you are the leader")
-      App.cable.subscriptions.create(
-        {
-          channel: 'IssuesChannel',
-          issue_id: <%= @issue.id %>
-        },
-        {
-          connected: () => {
-            var testSolutionContent = document.querySelector(".solution-content")
-            if (testSolutionContent != null ) {
-              var solutions = document.querySelector(".hidden-container")
-              solutions.classList.remove("hidden-container")
-            };
-            scrollLastMessageIntoView();
-          },
-          received: (data) => {
-            if (document.querySelector(".hidden-container") != null ){
-              var solutions = document.querySelector(".hidden-container")
-              solutions.classList.remove("hidden-container")
-            };
-            var current_user_id = <%= current_user.id %>;
-            var class_message = 'message'
-            if (current_user_id == data.current_user_id) {
-              class_message = 'message right'
-            };
-            var solutionsContainer = document.querySelector('.container-overflow');
-            solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
-            var input = document.querySelector('#solution_content');
-            input.value = '';
-            input.blur();
-            scrollLastMessageIntoView();
-          }
-        }
-      )
-    <% else %>
     App.cable.subscriptions.create(
       {
         channel: 'IssuesChannel',
@@ -92,26 +69,42 @@
       },
       {
         connected: () => {
-          var testSolutionContent = document.querySelector(".solution-content")
-          if (testSolutionContent != null ) {
-            var solutions = document.querySelector(".hidden-container")
-            solutions.classList.remove("hidden-container")
-          };
-          scrollLastMessageIntoView();
+          // var testSolutionContent = document.querySelector(".solution-content")
+          // if (testSolutionContent != null ) {
+          //   var solutions = document.querySelector(".hidden-container")
+          //   solutions.classList.remove("hidden-container")
+          // };
+          // scrollLastMessageIntoView();
         },
         received: (data) => {
-          console.log('FUCKER')
-          if (document.querySelector(".hidden-container") != null){
-            var solutions = document.querySelector(".hidden-container")
-            solutions.classList.remove("hidden-container")
+
+          const owner_issue_id = <%= @issue.user.id %>;
+          const current_user_id = <%= current_user.id %>;
+          const current_broadcaster_id = data.current_user_id;
+          const partial_solution = data.solution_partial;
+          var solutions = document.getElementById("chat-container")
+
+          // Gestion d'affichage de la start page pour les participants
+          const waiting_banner = document.getElementById("waiting-p-participant");
+          // Tester si la div "waiting-p-part" est affiché et si le meeting a commencé
+          if (waiting_banner != null && data.message == 'starting_meeting') {
+              // Participant : Cacher la banière de départ
+              waiting_banner.classList.add("hidden-container");
           };
-          var current_user_id = <%= current_user.id %>;
-          var class_message = 'message'
-          if (current_user_id == data.current_user_id) {
-            class_message = 'message right'
+
+          if (solutions.children.length != 0 || data.solution_partial != null){
+            solutions.parentElement.parentElement.classList.remove("hidden-container")
+            // Pour afficher sa propre réponse d'une couleur différente
+              var class_message = 'message'
+              if (current_user_id == current_broadcaster_id) {
+                class_message = 'message right'
+              };
+            if (data.solution_partial != null){
+              var solutionsContainer = document.querySelector('.container-overflow');
+              solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
+            };
           };
-          var solutionsContainer = document.querySelector('.container-overflow');
-          solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
+
           var input = document.querySelector('#solution_content');
           input.value = '';
           input.blur();
@@ -119,6 +112,5 @@
         }
       }
     )
-    <% end %>
   </script>
 <% end %>
