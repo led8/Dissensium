@@ -21,13 +21,13 @@ class SolutionsController < ApplicationController
   end
 
   def update
-    byebug
-    @solution.issue = Issue.find(params[:issue_id])
-    @solution.user = current_user
-byebug
-    if @solution.update(solution_params)
+#     byebug
+#     @solution.issue = Issue.find(params[:issue_id])
+#     @solution.user = current_user
+# byebug
+#     if @solution.update(solution_params)
 
-    end
+#     end
   end
 
   private

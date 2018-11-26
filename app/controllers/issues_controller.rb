@@ -11,6 +11,7 @@ class IssuesController < ApplicationController
   end
 
   def create
+
     @issue = Issue.new(issue_params)
     @issue.user = current_user
 
@@ -25,9 +26,16 @@ class IssuesController < ApplicationController
 
   end
 
+  def update
+    @issue = Issue.includes(solutions: :user).find(params[:id])
+    titre = { title: @issue.title }
+    @issue.update(titre)
+  end
+
   private
 
   def issue_params
+    byebug
     params.require(:issue).permit(:title, :support)
   end
 end

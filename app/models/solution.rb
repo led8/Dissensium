@@ -6,7 +6,6 @@ class Solution < ApplicationRecord
   validates :content, presence: true
 
   after_create :broadcast_solution
-  after_update :broadcast_starting_meeting
 
   def from?(some_user)
     user == some_user
@@ -18,13 +17,6 @@ class Solution < ApplicationRecord
         partial: "solutions/solution",
         locals: { solution: self, user_is_solutions_author: false }
       ),
-      current_user_id: user.id
-    })
-  end
-
-  def broadcast_starting_meeting
-    ActionCable.server.broadcast("issue_#{issue.id}", {
-      # message: "c'est partiiiiiiiiiii",
       current_user_id: user.id
     })
   end
