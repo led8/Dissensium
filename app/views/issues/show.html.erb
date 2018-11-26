@@ -5,6 +5,8 @@
   <div id="start-page" class=""> <!-- hidden-container -->
     <% if @issue.user == current_user && @issue.solutions.count.zero? %>
       <%= render 'issues/start_page' %>
+    <% elsif @issue.user != current_user && @issue.solutions.count.zero? %>
+      <%= render 'issues/start_page_participant' %>
     <% end %>
   </div>
 
@@ -50,15 +52,15 @@
 <% content_for :after_js do %>
   <script>
 
+  // Gestion d'affichage de la start page pour le leader
   const start_meeting_btn = document.getElementById("start-meeting-btn");
   // Tester si le bouton "start-meeting-btn" est affiché
   if (start_meeting_btn != null) {
     start_meeting_btn.addEventListener("click", (event) => {
       // LEADER : Cacher la banière de départ
-      start_meeting_btn.parentElement.parentElement.classList.add("hidden-container");
+      start_meeting_btn.parentElement.parentElement.parentElement.classList.add("hidden-container");
     });
   };
-
 
     App.cable.subscriptions.create(
       {
@@ -76,21 +78,19 @@
         },
         received: (data) => {
 
-          const owner_issue_id = <%= @issue.user.id %>
-          // console.log('owner_issue_id :');
-          // console.log(owner_issue_id)
-
+          const owner_issue_id = <%= @issue.user.id %>;
           const current_user_id = <%= current_user.id %>;
-
           const current_broadcaster_id = data.current_user_id;
-          // console.log('current_broadcaster_id :');
-          // console.log(current_broadcaster_id);
-
-          const partial_solution = data.solution_partial
-          // console.log('le Partial de la solution est :');
-          // console.log(partial_solution == null);
-
+          const partial_solution = data.solution_partial;
           var solutions = document.getElementById("chat-container")
+
+          // Gestion d'affichage de la start page pour les participants
+          const waiting_banner = document.getElementById("waiting-p-participant");
+          // Tester si la div "waiting-p-part" est affiché et si le meeting a commencé
+          if (waiting_banner != null && data.message == 'starting_meeting') {
+              // Participant : Cacher la banière de départ
+              waiting_banner.classList.add("hidden-container");
+          };
 
           if (solutions.children.length != 0 || data.solution_partial != null){
             solutions.parentElement.parentElement.classList.remove("hidden-container")

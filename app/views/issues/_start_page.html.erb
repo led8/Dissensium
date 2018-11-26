@@ -1,9 +1,8 @@
     <div class="landing-container">
       <h1 class="text-white text-center"><%= @issue.title %></h1>
       <div class="white-container landing-container">
-        <div id="start-meeting-btn" class="btn btn-start button-style">Start</div>
           <%= simple_form_for [@issue], remote: true, html: {autocomplete: "off" } do |f| %>
-            <%= f.button :submit, 'START MEETING', class: "form-control button-style" %>
+            <%= f.button :submit, 'START MEETING', class: "form-control button-style", id: "start-meeting-btn" %>
           <% end %>
       </div>
     </div>

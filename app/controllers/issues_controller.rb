@@ -35,7 +35,6 @@ class IssuesController < ApplicationController
   private
 
   def issue_params
-    byebug
     params.require(:issue).permit(:title, :support)
   end
 end

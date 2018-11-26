@@ -10,7 +10,7 @@ class Issue < ApplicationRecord
 
   def broadcast_starting_meeting
     ActionCable.server.broadcast("issue_#{self.id}", {
-      message: "c'est partiiiiiiiiiii",
+      message: "starting_meeting",
       current_user_id: user.id
     })
   end
