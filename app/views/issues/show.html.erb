@@ -32,7 +32,7 @@
       <h3>Creative asset list</h3>
       <div id="chat-container" class="container-overflow">
         <% @issue.solutions.each do |solution| %>
-          <%= render "solutions/solution", solution: solution, user_is_solutions_author: solution.user == current_user %>
+          <%= render "solutions/solution", solution: solution, vote: @vote, user_is_solutions_author: solution.user == current_user %>
         <% end %>
       </div>
     </div>
@@ -69,12 +69,12 @@
       },
       {
         connected: () => {
-          // var testSolutionContent = document.querySelector(".solution-content")
-          // if (testSolutionContent != null ) {
-          //   var solutions = document.querySelector(".hidden-container")
-          //   solutions.classList.remove("hidden-container")
-          // };
-          // scrollLastMessageIntoView();
+          var testSolutionContent = document.querySelector(".solution-content")
+          if (testSolutionContent != null ) {
+            var solutions = document.querySelector(".hidden-container")
+            solutions.classList.remove("hidden-container")
+          };
+          scrollLastMessageIntoView();
         },
         received: (data) => {
 
@@ -104,6 +104,11 @@
               solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
             };
           };
+          if (data.vote_partial != null){
+            let solution = document.getElementById(`${data.solution}`)
+            solution.innerText = ""
+            solution.insertAdjacentHTML('beforeend', data.vote_partial)
+          }
 
           var input = document.querySelector('#solution_content');
           input.value = '';

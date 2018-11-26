@@ -6,9 +6,15 @@ class VotesController < ApplicationController
     @vote.user = current_user
 
     if @vote.save
-      redirect_to issue_path(@vote.solution[:issue_id])
+     respond_to do |format|
+        format.html { redirect_to issue_path(@solution.issue.id) }
+        format.js
+      end
     else
-      redirect_to issue_path(@vote.solution[:issue_id])
+      respond_to do |format|
+        format.html { render "issues/show" }
+        format.js
+      end
     end
   end
 

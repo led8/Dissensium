@@ -15,7 +15,7 @@ class Solution < ApplicationRecord
     ActionCable.server.broadcast("issue_#{issue.id}", {
       solution_partial: ApplicationController.renderer.render(
         partial: "solutions/solution",
-        locals: { solution: self, user_is_solutions_author: false }
+        locals: { solution: self, vote: Vote.new, user_is_solutions_author: false }
       ),
       current_user_id: user.id
     })
