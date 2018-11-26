@@ -62,6 +62,8 @@
     });
   };
 
+    let count_user = 0
+
     App.cable.subscriptions.create(
       {
         channel: 'IssuesChannel',
@@ -69,6 +71,7 @@
       },
       {
         connected: () => {
+
           // var testSolutionContent = document.querySelector(".solution-content")
           // if (testSolutionContent != null ) {
           //   var solutions = document.querySelector(".hidden-container")
@@ -81,9 +84,35 @@
           const owner_issue_id = <%= @issue.user.id %>;
           const current_user_id = <%= current_user.id %>;
           const current_broadcaster_id = data.current_user_id;
-          const partial_solution = data.solution_partial;
-          var solutions = document.getElementById("chat-container")
 
+
+          console.log(current_broadcaster_id);
+          // console.log(data.user_partial)
+          const partial_solution = data.solution_partial;
+          var solutions = document.getElementById("chat-container");
+
+          // Gestion d'affichage de la start page pour les participants
+          const current_partial_users = document.getElementById('participants_list');
+
+          if (data.user_partial != null && current_partial_users != null){
+            // Afficher une icone si c'est le 1er utilisateur
+            if (current_partial_users.firstElementChild.childElementCount == 0) {
+              count_user += 1;
+              console.log(count_user);
+              current_partial_users.lastElementChild.insertAdjacentHTML('beforeend', data.user_partial);
+
+            } else {
+              // Vérifier si il y a déjà une icone pour cet utilisateur
+                const current_user_partial = current_partial_users.firstElementChild.querySelector('#user' + current_broadcaster_id);
+                // si ce n'est pas le cas -> on en ajoute
+                if (current_user_partial == null) {
+                    count_user += 1;
+                    console.log(count_user);
+                    current_partial_users.lastElementChild.insertAdjacentHTML('beforeend', data.user_partial);
+                };
+            };
+
+          };
           // Gestion d'affichage de la start page pour les participants
           const waiting_banner = document.getElementById("waiting-p-participant");
           // Tester si la div "waiting-p-part" est affiché et si le meeting a commencé
