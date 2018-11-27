@@ -72,6 +72,9 @@
               currentStep.innerHTML = data.new_solution_partial;
               console.log(data);
               break;
+            case 'create_solution':
+              addTextToUserIcon(data.current_user_id, data.solution_hint)
+              break;
             case 'new_votes':
               currentStep.innerHTML = data.new_votes_partial;
               console.log(data);
@@ -84,7 +87,12 @@
               return current_user_partial == null;
           }
 
-
+          function addTextToUserIcon(user_id, text) {
+            if (checkUserConnection(user_id) != true){
+              const current_user_partial = participantsList.firstElementChild.querySelector('#user' + user_id);
+              current_user_partial.append(text);
+            };
+          }
 
           // //       // si ce n'est pas le cas -> on en ajoute
           //       if (current_user_partial == null) {
