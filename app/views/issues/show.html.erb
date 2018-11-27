@@ -2,7 +2,11 @@
 <%= render 'shared/flashes' %>
 
 <% if @issue.owned_by?(current_user) %>
-  <%= render 'participants_list' %>
+  <div id="participants-list">
+    <ul>
+
+    </ul>
+  </div>
 <% end %>
 
 <% if !@issue.support.file.nil? %>
@@ -31,6 +35,7 @@
 <% content_for :after_js do %>
 
   <script>
+    const participantsList = document.getElementById('participants-list');
     const currentStep = document.getElementById('current_step');
 
     App.cable.subscriptions.create(
@@ -59,6 +64,9 @@
           switch (data.action) {
             case 'subscribed':
               console.log("User " + data.current_user_id + " subscribed");
+              if (checkUserConnection(data.current_user_id) == true){
+                participantsList.firstElementChild.insertAdjacentHTML("beforeend", data.user_partial)
+              };
               break;
             case 'new_solution':
               currentStep.innerHTML = data.new_solution_partial;
@@ -71,7 +79,18 @@
               console.log('No action ' + data.action + '.');
           }
 
-          // const owner_issue_id = <%= @issue.user.id %>;
+          function checkUserConnection(user_id) {
+            const current_user_partial = participantsList.firstElementChild.querySelector('#user' + user_id);
+              return current_user_partial == null;
+          }
+
+
+
+          // //       // si ce n'est pas le cas -> on en ajoute
+          //       if (current_user_partial == null) {
+          //           count_users += 1;
+          //           current_partial_users.lastElementChild.insertAdjacentHTML('beforeend', data.user_partial);
+          //       };
           // const current_user_id = <%= current_user.id %>;
           // const current_broadcaster_id = data.current_user_id;
           // const partial_solution = data.solution_partial;
@@ -87,12 +106,6 @@
 
           //   } else {
           //     // Vérifier si il y a déjà une icone pour cet utilisateur
-          //       const current_user_partial = current_partial_users.firstElementChild.querySelector('#user' + current_broadcaster_id);
-          //       // si ce n'est pas le cas -> on en ajoute
-          //       if (current_user_partial == null) {
-          //           count_users += 1;
-          //           current_partial_users.lastElementChild.insertAdjacentHTML('beforeend', data.user_partial);
-          //       };
           //   };
           // };
           // // Gestion d'affichage de la start page pour les participants
