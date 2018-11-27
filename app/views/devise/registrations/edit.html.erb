@@ -1,45 +1,63 @@
 <%= render 'shared/navbar-logo' %>
 <%= render 'shared/flashes' %>
+
+<div class="edit-list">
+  <ul>
+    <li>
+      <div class="edit-hover">
+        <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "devise-edit-link hover-field" %></div>
+      </li>
+    <li>
+      <div class="edit-hover">
+        <%= link_to "Back", :back, class: "devise-edit-link" %>
+        </div>
+      </li>
+  </ul>
+</div>
+
 <div class="container">
-  <h2>Edit <%= resource_name.to_s.humanize %></h2>
+  <div class="row">
+    <div data-aos="zoom-in" class="col-xs-12 offset-md-3 col-md-6 transparent-container container-margin-edit ">
+      <h2 class="text-center">Edit <%= resource_name.to_s.humanize %></h2>
 
-  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <%= f.error_notification %>
+      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= f.error_notification %>
 
-    <div class="form-inputs">
-      <%= f.input :email, required: true, autofocus: true %>
+        <div class="form-inputs">
+          <%= f.label :email, class: "label-style-devise" %>
+          <%= f.input_field :email, required: true, autofocus: true, class: "form-control devise-style" %>
 
-      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+          <% end %>
+
+          <%= f.label :username, class: "label-style-devise" %>
+          <%= f.input_field :username, class: "form-control devise-style",
+                      hint: "leave it blank if you don't want to change it",
+                      required: false,
+                      input_html: { autocomplete: "new-username" } %>
+          <%= f.label :password, class: "label-style-devise" %>
+          <%= f.input_field :password, class: "form-control devise-style",
+                      hint: "leave it blank if you don't want to change it",
+                      required: false,
+                      input_html: { autocomplete: "new-password" } %>
+          <%= f.label :password_confirmation, class: "label-style-devise" %>
+          <%= f.input_field :password_confirmation, class: "form-control devise-style",
+                      required: false,
+                      input_html: { autocomplete: "new-password" } %>
+          <%= f.label :current_password, class: "label-style-devise" %>
+          <%= f.input_field :current_password, class: "form-control devise-style",
+                      hint: "we need your current password to confirm your changes",
+                      required: true,
+                      input_html: { autocomplete: "current-password" } %>
+          <%= f.input :avatar %>
+          <%= f.input :avatar_cache, as: :hidden %>
+        </div>
+
+        <div class="form-actions">
+          <%= f.button :submit, "Update", class: "form-control button-style-log" %>
+        </div>
       <% end %>
-
-      <%= f.input :username,
-                  hint: "leave it blank if you don't want to change it",
-                  required: false,
-                  input_html: { autocomplete: "new-username" } %>
-      <%= f.input :password,
-                  hint: "leave it blank if you don't want to change it",
-                  required: false,
-                  input_html: { autocomplete: "new-password" } %>
-      <%= f.input :password_confirmation,
-                  required: false,
-                  input_html: { autocomplete: "new-password" } %>
-      <%= f.input :current_password,
-                  hint: "we need your current password to confirm your changes",
-                  required: true,
-                  input_html: { autocomplete: "current-password" } %>
-      <%= f.input :avatar %>
-      <%= f.input :avatar_cache, as: :hidden %>
     </div>
-
-    <div class="form-actions">
-      <%= f.button :submit, "Update" %>
-    </div>
-  <% end %>
-
-  <h3>Cancel my account</h3>
-
-  <p>Unhappy? <%= link_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-  <%= link_to "Back", :back %>
+  </div>
 </div>

@@ -20,8 +20,10 @@
       <%= simple_form_for @issue do |f| %>
         <%= f.label :Meeting_object, class: "label-style" %>
         <%= f.input_field :title, class: "form-control devise-meeting-style" %>
+        <div class="support-field">
         <%= f.input :support %>
         <%= f.input :support_cache, as: :hidden %>
+        </div>
         <%= f.button :submit, 'Create the meeting', class: "form-control button-style" %>
       <% end %>
     </div>
@@ -36,7 +38,7 @@
 
     list.addEventListener("click", (event) => {
         opacity.style.opacity = 0.1;
-        opacity.style.transition = "all 2s";
+        opacity.style.transition = "all 1s";
         instructions.style.left = "143px";
     });
 

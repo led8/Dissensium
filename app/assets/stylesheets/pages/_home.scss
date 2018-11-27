@@ -25,7 +25,6 @@
 }
 
 .title-dissensium {
-  // display: none;
   margin-top: 200px;
   font-size: 11vw;
   color: white;
@@ -35,7 +34,6 @@
 }
 
 .dissensium-home-link {
-  // display: none;
   color: white;
   font-family: 'Montserrat', sans-serif;
   &:hover {
@@ -45,11 +43,38 @@
   }
 }
 
+.meeting-list {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 1050px;
+  padding-left: 15px;
+  & li {
+    list-style: none;
+  }
+  & li .meeting-hover {
+    padding: 15vh 0px;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.dissensium-meeting-link {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  cursor: pointer;
+    &:hover {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
 .about-content {
   background: rgba(0,0,0, 0.3);
   border-radius: 0 3px;
   border: 1px solid white;
-  padding: 30px;
+  padding: 80px 40px;
   color: white;
   font-family: 'Montserrat', sans-serif;
   position: absolute;
@@ -57,18 +82,24 @@
   top: 14.5vh;
   height: 71vh;
   left: -1000px;
-  transition: all 2s;
+  transition: ease-out 1s;
   & p {
-    position: absolute;
-    opacity: 0.8;
+    opacity: 1;
     font-size: 15px;
-    top: 10vh;
+    line-height: 30px;
   }
   & span {
     font-size: 30px;
     position: absolute;
     right: 4vh;
     top: 1vh;
+  }
+  & i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right:50%;
+    font-size: 30px;
   }
 }
 
@@ -84,7 +115,7 @@
   top: 14.5vh;
   height: 71vh;
   left: -1000px;
-  transition: all 2s;
+  transition: ease-out 1s;
   & p {
     position: absolute;
     opacity: 0.8;
@@ -111,7 +142,7 @@
   top: 14.5vh;
   height: 71vh;
   left: -1000px;
-  transition: all 2s;
+  transition: ease-out 1s;
   & p {
     position: absolute;
     opacity: 0.8;
