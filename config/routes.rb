@@ -4,13 +4,13 @@ Rails.application.routes.draw do
   root to: 'pages#home'
 
   resources :users, only: [:show]
-  resources :issues, only: [ :new, :create, :show , :update], shallow: true do
-    resources :solutions, only: [ :new, :create] do
-      resources :votes, only: [ :new, :create ]
-    end
+  resources :issues, only: [:new, :create, :show , :update], shallow: true do
     member do
+      post 'start'
       get 'results'
     end
+    resources :solutions, only: [:new, :create]
+    resources :votes, only: [:new, :create]
   end
 
   mount ActionCable.server => "/cable"

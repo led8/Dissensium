@@ -1,49 +1,28 @@
 <%= render 'shared/navbar-logo' %>
 <%= render 'shared/flashes' %>
 
-<div class="container">
-  <div id="start-page" class=""> <!-- hidden-container -->
-    <% if @issue.user == current_user && @issue.solutions.count.zero? %>
-      <%= render 'issues/start_page' %>
-    <% elsif @issue.user != current_user && @issue.solutions.count.zero? %>
-      <%= render 'issues/start_page_participant' %>
-    <% end %>
-  </div>
+<% if @issue.owned_by?(current_user) %>
+  <%= render 'participants_list' %>
+<% end %>
 
-  <h1 class="text-white"><%= @issue.title %></h1>
-
-  <% if @issue.user == current_user %>
-    <%= render 'participants_list' %>
-  <% end %>
-
-  <% if !@issue.support.file.nil? %>
-    <div class="row">
-      <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
-        <h3 class= "text-center">Issue support</h3>
-          <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
-          <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale, class: "support" %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-
-  <div class="row hidden-container">
-    <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
-      <h3>Creative asset list</h3>
-      <div id="chat-container" class="container-overflow">
-        <% @issue.solutions.each do |solution| %>
-          <%= render "solutions/solution", solution: solution, vote: @vote, user_is_solutions_author: solution.user == current_user %>
-        <% end %>
-      </div>
-    </div>
-  </div>
-
+<% if !@issue.support.file.nil? %>
   <div class="row">
-    <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5 mb-5">
-      <%= simple_form_for [@issue, @solution], remote: true, html: {autocomplete: "off" } do |f| %>
-        <%= f.label :My_solution, class: "label-style" %>
-        <%= f.input_field :content, class: "form-control" %>
-        <%= f.button :submit, 'Send my solution', class: "form-control button-style" %>
+    <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
+      <h3 class= "text-center">Issue support</h3>
+        <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
+        <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale, class: "support" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="container">
+  <div id="current_step">
+    <div id="start-page" class="">
+      <% if @issue.owned_by?(current_user) %>
+        <%= render 'issues/start_page' %>
+      <% else %>
+        <%= render 'issues/start_page_participant' %>
       <% end %>
     </div>
   </div>
@@ -52,44 +31,15 @@
 <% content_for :after_js do %>
 
   <script>
-
-  let count_users = 0
-  let count_solutions = 0
-  let count_votes = 0
-
-  let user = {
-    id: <%= current_user.id %>,
-    solution: 0,
-    votes: 0,
-    solution_round: 0,
-    vote_round: 0,
-  };
-
-  // Gestion d'affichage de la start page pour le leader
-  const start_meeting_btn = document.getElementById("start-meeting-btn");
-  // Tester si le bouton "start-meeting-btn" est affiché
-  if (start_meeting_btn != null) {
-    start_meeting_btn.addEventListener("click", (event) => {
-      // LEADER : Cacher la banière de départ
-      start_meeting_btn.parentElement.parentElement.parentElement.classList.add("hidden-container");
-      user.solution_round += 1;
-    });
-  };
-
-  // Gestion d'affichage du champs création de solution
-  const input_solution = document.getElementById("new_solution");
-  // Tester si le champs est affiché
-  if (input_solution != null) {
-    input_solution.addEventListener("submit", (event) => {
-      // LEADER : Cacher la banière de départ
-      input_solution.parentElement.classList.add("hidden-container");
-      user.solution += 1;
-    });
-  };
+    const currentStep = document.getElementById('current_step');
 
     App.cable.subscriptions.create(
       {
-        channel: 'IssuesChannel',
+        <% if @issue.user == current_user %>
+          channel: 'IssuesLeaderChannel',
+        <% else %>
+          channel: 'IssuesChannel',
+        <% end %>
         issue_id: <%= @issue.id %>
       },
       {
@@ -105,66 +55,81 @@
         },
         received: (data) => {
 
-          const owner_issue_id = <%= @issue.user.id %>;
-          const current_user_id = <%= current_user.id %>;
-          const current_broadcaster_id = data.current_user_id;
-          const partial_solution = data.solution_partial;
-          const current_partial_users = document.getElementById('participants_list');
-          var solutions = document.getElementById("chat-container");
 
-          // Gestion d'affichage de la start page pour les participants
-          if (data.user_partial != null && current_partial_users != null){
-            // Afficher une icone si c'est le 1er utilisateur
-            if (current_partial_users.firstElementChild.childElementCount == 0) {
-              count_users += 1;
-              current_partial_users.lastElementChild.insertAdjacentHTML('beforeend', data.user_partial);
+          switch (data.action) {
+            case 'subscribed':
+              console.log("User " + data.current_user_id + " subscribed");
+              break;
+            case 'new_solution':
+              currentStep.innerHTML = data.new_solution_partial;
+              console.log(data);
+              break;
+            case 'new_votes':
+              currentStep.innerHTML = data.new_votes_partial;
+              console.log(data);
+            default:
+              console.log('No action ' + data.action + '.');
+          }
 
-            } else {
-              // Vérifier si il y a déjà une icone pour cet utilisateur
-                const current_user_partial = current_partial_users.firstElementChild.querySelector('#user' + current_broadcaster_id);
-                // si ce n'est pas le cas -> on en ajoute
-                if (current_user_partial == null) {
-                    count_users += 1;
-                    current_partial_users.lastElementChild.insertAdjacentHTML('beforeend', data.user_partial);
-                };
-            };
-          };
-          // Gestion d'affichage de la start page pour les participants
-          const waiting_banner = document.getElementById("waiting-p-participant");
-          // Tester si la div "waiting-p-part" est affiché et si le meeting a commencé
-          if (waiting_banner != null && data.message == 'starting_meeting') {
-              // Participant : Cacher la banière de départ
-              waiting_banner.classList.add("hidden-container");
-              user.solution_round = 1;
-          };
+          // const owner_issue_id = <%= @issue.user.id %>;
+          // const current_user_id = <%= current_user.id %>;
+          // const current_broadcaster_id = data.current_user_id;
+          // const partial_solution = data.solution_partial;
+          // const current_partial_users = document.getElementById('participants_list');
+          // var solutions = document.getElementById("chat-container");
 
-          if (solutions.children.length != 0 || data.solution_partial != null){
-            solutions.parentElement.parentElement.classList.remove("hidden-container")
-            // Pour afficher sa propre réponse d'une couleur différente
-              var class_message = 'message'
-              if (current_user_id == current_broadcaster_id) {
-                class_message = 'message right'
-              };
-            if (data.solution_partial != null){
-              var solutionsContainer = document.querySelector('.container-overflow');
-              solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
-            };
-          };
-          if (data.vote_partial != null){
-            let solution = document.getElementById(`${data.solution}`)
-            count_votes += 1
-            if (count_votes == count_users) {
-              solution.innerText = "";
-              solution.insertAdjacentHTML('beforeend', data.vote_partial);
-            };
-          };
+          // // Gestion d'affichage de la start page pour les participants
+          // if (data.user_partial != null && current_partial_users != null){
+          //   // Afficher une icone si c'est le 1er utilisateur
+          //   if (current_partial_users.firstElementChild.childElementCount == 0) {
+          //     count_users += 1;
+          //     current_partial_users.lastElementChild.insertAdjacentHTML('beforeend', data.user_partial);
 
-          var input = document.querySelector('#solution_content');
-          input.value = '';
-          input.blur();
-          scrollLastMessageIntoView();
+          //   } else {
+          //     // Vérifier si il y a déjà une icone pour cet utilisateur
+          //       const current_user_partial = current_partial_users.firstElementChild.querySelector('#user' + current_broadcaster_id);
+          //       // si ce n'est pas le cas -> on en ajoute
+          //       if (current_user_partial == null) {
+          //           count_users += 1;
+          //           current_partial_users.lastElementChild.insertAdjacentHTML('beforeend', data.user_partial);
+          //       };
+          //   };
+          // };
+          // // Gestion d'affichage de la start page pour les participants
+          // const waiting_banner = document.getElementById("waiting-p-participant");
+          // // Tester si la div "waiting-p-part" est affiché et si le meeting a commencé
+          // if (waiting_banner != null && data.message == 'starting_meeting') {
+          //     // Participant : Cacher la banière de départ
+          //     waiting_banner.classList.add("hidden-container");
+          //     user.solution_round = 1;
+          // };
 
-          console.log(user);
+          // if (solutions.children.length != 0 || data.solution_partial != null){
+          //   solutions.parentElement.parentElement.classList.remove("hidden-container")
+          //   // Pour afficher sa propre réponse d'une couleur différente
+          //     var class_message = 'message'
+          //     if (current_user_id == current_broadcaster_id) {
+          //       class_message = 'message right'
+          //     };
+          //   if (data.solution_partial != null){
+          //     var solutionsContainer = document.querySelector('.container-overflow');
+          //     solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
+          //   };
+          // };
+          // if (data.vote_partial != null){
+          //   let solution = document.getElementById(data.solution)
+          //   count_votes += 1
+          //   if (count_votes == count_users) {
+          //     solution.innerHTML = data.vote_partial;
+          //   };
+          // };
+
+          // var input = document.querySelector('#solution_content');
+          // input.value = '';
+          // input.blur();
+          // scrollLastMessageIntoView();
+
+          // console.log(user);
         }
       }
     )

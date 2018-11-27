@@ -1,9 +1,7 @@
-    <div class="landing-container">
-      <h1 class="text-white text-center"><%= @issue.title %></h1>
-      <div class="white-container landing-container">
-          <%= simple_form_for [@issue], remote: true, html: {autocomplete: "off" } do |f| %>
-            <%= f.button :submit, 'START MEETING', class: " btn button-style btn-start", id: "start-meeting-btn" %>
-          <% end %>
-      </div>
-    </div>
+<div class="landing-container">
+  <h1 class="text-white text-center"><%= @issue.title %></h1>
+  <div class="white-container landing-container">
+    <%= link_to "START MEETING", start_issue_path(@issue), method: :post, remote: true %>
+  </div>
+</div>
 

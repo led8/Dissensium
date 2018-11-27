@@ -6,13 +6,8 @@ class Issue < ApplicationRecord
 
   mount_uploader :support, PhotoUploader
 
-  after_update :broadcast_starting_meeting
-
-  def broadcast_starting_meeting
-    ActionCable.server.broadcast("issue_#{self.id}", {
-      message: "starting_meeting",
-      current_user_id: user.id
-    })
+  def owned_by?(user)
+    self.user == user
   end
 
 # To generate a random link

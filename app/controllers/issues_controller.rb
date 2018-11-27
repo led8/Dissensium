@@ -11,7 +11,6 @@ class IssuesController < ApplicationController
   end
 
   def create
-
     @issue = Issue.new(issue_params)
     @issue.user = current_user
 
@@ -22,10 +21,22 @@ class IssuesController < ApplicationController
     end
   end
 
-  def update
+  def start
     @issue = Issue.includes(solutions: :user).find(params[:id])
-    titre = { title: @issue.title }
-    @issue.update(titre)
+    ActionCable.server.broadcast("issue_#{params[:id]}", {
+      action: "new_solution",
+      new_solution_partial: ApplicationController.renderer.render(
+        partial: "solutions/form",
+        locals: { issue: @issue, solution: @issue.solutions.new }
+      )
+    })
+    ActionCable.server.broadcast("issue_leader_#{params[:id]}", {
+      action: "new_solution",
+      new_solution_partial: ApplicationController.renderer.render(
+        partial: "solutions/form",
+        locals: { issue: @issue, solution: @issue.solutions.new, leader: true }
+      )
+    })
   end
 
   private
