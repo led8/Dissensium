@@ -50,7 +50,20 @@
 </div>
 
 <% content_for :after_js do %>
+
   <script>
+
+  let count_users = 0
+  let count_solutions = 0
+  let count_votes = 0
+
+  let user = {
+    id: <%= current_user.id %>,
+    solution: 0,
+    votes: 0,
+    solution_round: 0,
+    vote_round: 0,
+  };
 
   // Gestion d'affichage de la start page pour le leader
   const start_meeting_btn = document.getElementById("start-meeting-btn");
@@ -59,11 +72,20 @@
     start_meeting_btn.addEventListener("click", (event) => {
       // LEADER : Cacher la banière de départ
       start_meeting_btn.parentElement.parentElement.parentElement.classList.add("hidden-container");
+      user.solution_round += 1;
     });
   };
 
-    let count_user = 0
-    let count_votes = 0
+  // Gestion d'affichage du champs création de solution
+  const input_solution = document.getElementById("new_solution");
+  // Tester si le champs est affiché
+  if (input_solution != null) {
+    input_solution.addEventListener("submit", (event) => {
+      // LEADER : Cacher la banière de départ
+      input_solution.parentElement.classList.add("hidden-container");
+      user.solution += 1;
+    });
+  };
 
     App.cable.subscriptions.create(
       {
@@ -86,21 +108,15 @@
           const owner_issue_id = <%= @issue.user.id %>;
           const current_user_id = <%= current_user.id %>;
           const current_broadcaster_id = data.current_user_id;
-
-
-          console.log(current_broadcaster_id);
-          // console.log(data.user_partial)
           const partial_solution = data.solution_partial;
+          const current_partial_users = document.getElementById('participants_list');
           var solutions = document.getElementById("chat-container");
 
           // Gestion d'affichage de la start page pour les participants
-          const current_partial_users = document.getElementById('participants_list');
-
           if (data.user_partial != null && current_partial_users != null){
             // Afficher une icone si c'est le 1er utilisateur
             if (current_partial_users.firstElementChild.childElementCount == 0) {
-              count_user += 1;
-              console.log(count_user);
+              count_users += 1;
               current_partial_users.lastElementChild.insertAdjacentHTML('beforeend', data.user_partial);
 
             } else {
@@ -108,12 +124,10 @@
                 const current_user_partial = current_partial_users.firstElementChild.querySelector('#user' + current_broadcaster_id);
                 // si ce n'est pas le cas -> on en ajoute
                 if (current_user_partial == null) {
-                    count_user += 1;
-                    console.log(count_user);
+                    count_users += 1;
                     current_partial_users.lastElementChild.insertAdjacentHTML('beforeend', data.user_partial);
                 };
             };
-
           };
           // Gestion d'affichage de la start page pour les participants
           const waiting_banner = document.getElementById("waiting-p-participant");
@@ -121,6 +135,7 @@
           if (waiting_banner != null && data.message == 'starting_meeting') {
               // Participant : Cacher la banière de départ
               waiting_banner.classList.add("hidden-container");
+              user.solution_round = 1;
           };
 
           if (solutions.children.length != 0 || data.solution_partial != null){
@@ -138,7 +153,7 @@
           if (data.vote_partial != null){
             let solution = document.getElementById(`${data.solution}`)
             count_votes += 1
-            if (count_votes == count_user) {
+            if (count_votes == count_users) {
               solution.innerText = "";
               solution.insertAdjacentHTML('beforeend', data.vote_partial);
             };
@@ -148,6 +163,8 @@
           input.value = '';
           input.blur();
           scrollLastMessageIntoView();
+
+          console.log(user);
         }
       }
     )
