@@ -1,0 +1,50 @@
+li .hover-field {
+  border: 1px solid #cc0000;
+  padding: 5px 10px;
+  border-radius: 3px;
+  background: #cc0000;
+  color: white;
+  font-weight: bold;
+  &:hover {
+    border: 1px solid white;
+    background: #cc0000;
+  }
+}
+
+.devise-edit-link {
+  color: white;
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+    list-style: circle;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+  }
+}
+
+.edit-list {
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 5px;
+  padding-right: 15px;
+  & li {
+    padding: 10vh 0px;
+    list-style: circle;
+    color: white;
+  }
+  & li .edit-hover {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+  }
+  & li .edit-hover:hover {
+    cursor: pointer;
+    list-style: circle;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+  }
+}

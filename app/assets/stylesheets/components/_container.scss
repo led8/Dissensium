@@ -1,7 +1,7 @@
 .white-container {
-  background: white;
+  background: rgba(255,255,255, 0.3);
+  border-radius: 3px;
   padding: 50px;
-  box-shadow: 0px 0px 5px #404040;
   font-family: 'Hammersmith One', sans-serif;
   margin-top: 20px;
   & h2 {
@@ -12,7 +12,7 @@
 }
 
 .container-margin {
-  margin-top: 20vh;
+  margin-top: 12.5vh;
 }
 
 .container-margin-signup {
@@ -30,10 +30,22 @@
   }
 }
 
-.opacity-container{
-  background: rgba(0, 0, 0, 0.1);
+.opacity-container-top{
+  background: rgba(0,0,0, 0.3);
+  border-radius: 3px;
+  box-shadow: 0px 0px 2px black;
   padding: 30px;
-  min-height: 200px;
+  min-height: 300px;
+  font-family: 'Hammersmith One', sans-serif;
+  color: white;
+}
+
+.opacity-container-bottom{
+  background: rgba(0,0,0, 0.3);
+  border-radius: 3px;
+  box-shadow: 0px 0px 2px black;
+  padding: 30px;
+  min-height: 250px;
   font-family: 'Hammersmith One', sans-serif;
   color: white;
 }

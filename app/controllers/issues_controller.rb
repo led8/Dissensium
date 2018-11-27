@@ -22,10 +22,6 @@ class IssuesController < ApplicationController
     end
   end
 
-  def results
-
-  end
-
   def update
     @issue = Issue.includes(solutions: :user).find(params[:id])
     titre = { title: @issue.title }

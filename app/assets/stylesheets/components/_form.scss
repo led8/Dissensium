@@ -1,6 +1,7 @@
 .label-style {
-  color: #777676;
+  color: black;
   font-family: 'Montserrat', sans-serif;
+  font-weight: bold;
 }
 
 .label-style-devise {
@@ -8,20 +9,8 @@
   font-family: 'Montserrat', sans-serif;
 }
 
-.button-style {
-  margin-top: 30px;
-  font-family: 'Montserrat', sans-serif;
-  background: #00bf8f;
-  color: white;
-  &:hover {
-    // color: #00bf8f;
-    background: #00e6ac;
-    // border-color: #00bf8f;
-  }
-}
-
 .devise-meeting-style {
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 }
 
 .devise-style {
@@ -32,19 +21,6 @@
     background: rgba(255,255,255, 0.3);
     caret-color: white;
     color: white;
-  }
-}
-
-.button-style-log {
-  margin-top: 30px;
-  font-family: 'Montserrat', sans-serif;
-  background: transparent;
-  border: 1px solid white;
-  color: white;
-  &:hover {
-    background: white;
-    color: #44A08D;
-    border-color: white;
   }
 }
 
@@ -61,6 +37,14 @@
   color: white;
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
+  & .field {
+    border: 1px solid white;
+    padding: 5px 10px;
+    border-radius: 3px;
+    background: white;
+    color: #44A08D;
+    font-weight: bold;
+  }
 }
 
 .user_avatar {
@@ -70,13 +54,7 @@
   margin-top: 50px;
 }
 
-.button-style-signup {
-  color: white;
-  text-decoration: none;
-  font-size: 20px;
-  font-family: 'Montserrat', sans-serif;
-}
-.button-style-signup:hover {
-  color: white;
-  text-decoration: underline;
+.support-field {
+  font-size: 12px;
+  margin-bottom: 70px;
 }
