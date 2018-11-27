@@ -23,9 +23,11 @@ class Solution < ApplicationRecord
 
   def bobby
     unless self.votes.count.zero?
-      byebug
+
+      list_votes = votes.map { |vote| vote[:rating] }
+
       grouped_votes = []
-      grouped_votes.push(self.votes.count(5)).push(self.votes.count(4)).push(self.votes.count(3)).push(self.votes.count(2)).push(self.votes.count(1))
+      grouped_votes.push(list_votes.count(5)).push(list_votes.count(4)).push(list_votes.count(3)).push(list_votes.count(2)).push(list_votes.count(1))
 
       sum = 0
       sum_of_votes = grouped_votes.map { |x| sum += x }
@@ -35,15 +37,15 @@ class Solution < ApplicationRecord
       majority_vote_index = majority_vote.index(true)
 
       if majority_vote_index.zero?
-        return " insuffisant"
+        return " Excellent"
       elsif majority_vote_index == 1
-        return " passable"
+        return " Très bien"
       elsif majority_vote_index == 2
-        return " bien"
+        return " Bien"
       elsif majority_vote_index == 3
-        return " très bien"
+        return " Passable"
       else
-        return "excellent"
+        return " Insuffisant"
       end
     end
   end
