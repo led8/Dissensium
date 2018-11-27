@@ -63,6 +63,7 @@
   };
 
     let count_user = 0
+    let count_votes = 0
 
     App.cable.subscriptions.create(
       {
@@ -136,9 +137,12 @@
           };
           if (data.vote_partial != null){
             let solution = document.getElementById(`${data.solution}`)
-            solution.innerText = ""
-            solution.insertAdjacentHTML('beforeend', data.vote_partial)
-          }
+            count_votes += 1
+            if (count_votes == count_user) {
+              solution.innerText = "";
+              solution.insertAdjacentHTML('beforeend', data.vote_partial);
+            };
+          };
 
           var input = document.querySelector('#solution_content');
           input.value = '';
