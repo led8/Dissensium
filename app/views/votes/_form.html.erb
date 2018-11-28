@@ -1,12 +1,19 @@
-<%= simple_form_for :votes, url: issue_votes_path(issue), remote: true do |f| %>
-  <div class="container-overflow">
-    <% solutions.each do |solution| %>
-      <h3><%= solution.content %></h3>
-        <%= f.simple_fields_for "solution_#{solution.id}", Vote.new do |v| %>
-        <%= v.input :solution_id, input_html: { value: solution.id } %>
-        <%= v.input :rating, as: :radio_buttons, collection: (1..5) %>
-      <% end %>
+<div class="row">
+  <div data-aos="zoom-in" class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5">
+    <h3 class="text-center text-white border-bottom"><div class="asset-title">Creative vote list</div></h3>
+    <%= simple_form_for :votes, url: issue_votes_path(issue), remote: true do |f| %>
+      <div class="container-overflow-vote">
+        <% solutions.each do |solution| %>
+          <h3 class="vote-content"><%= solution.content %></h3>
+          <div class="seperate-content mb-3">
+              <%= f.simple_fields_for "solution_#{solution.id}", Vote.new do |v| %>
+              <%= v.input :solution_id, input_html: { value: solution.id } %>
+              <%= v.collection_radio_buttons :rating, [[5, "Excellent"], [4, "Très bien"], [3, "Bien"], [2, "Passable"], [1, "Insuffisant"]], :first, :last %>
+          <% end %>
+          </div>
+        <% end %>
+      </div>
+      <%= f.button :submit, class: "form-control btn-send" %>
     <% end %>
   </div>
-  <%= f.submit %>
-<% end %>
+</div>
