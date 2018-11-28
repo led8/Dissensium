@@ -10,6 +10,12 @@
       </div>
       <div data-aos="zoom-in" class="collaborators-container">
         <h6 class="text-center text-white"><strong>Wait</strong> until all collaborators are logged</h6>
+        <% if @issue.owned_by?(current_user) %>
+          <div id="collaborators-list">
+            <ul>
+            </ul>
+          </div>
+        <% end %>
       </div>
 
       <%= link_to "Start meeting", start_issue_path(@issue), method: :post, remote: true, class: "btn btn-start" %>
