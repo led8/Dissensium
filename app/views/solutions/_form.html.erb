@@ -1,5 +1,4 @@
 <% if local_assigns[:leader] || (solution.votes != []) %>
-  <% unless issue.solutions == [] %>
     <div class="row">
       <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
         <h3>Creative asset list</h3>
@@ -10,18 +9,14 @@
         </div>
       </div>
     </div>
-  <% end %>
 <% end %>
 
-<div id="solution_form" class="white-container">
-
-
-  <%= simple_form_for [issue, solution], remote: true do |f| %>
-    <%= f.input_field :content, class: "label-style form-control" %>
-    <%= f.button :submit, 'Send my solution', class: "form-control button-style" %>
-  <% end %>
-</div>
-
+  <div id="solution_form" class="white-container">
+    <%= simple_form_for [issue, solution], remote: true do |f| %>
+      <%= f.input_field :content, class: "label-style form-control" %>
+      <%= f.button :submit, 'Send my solution', class: "form-control button-style" %>
+    <% end %>
+  </div>
 
 <% if local_assigns[:leader] %>
   <%= link_to "Next Step", new_issue_vote_path(issue), remote: true %>
