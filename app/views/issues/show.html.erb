@@ -16,7 +16,7 @@
 <% end %>
 
 <% if !@issue.support.file.nil? %>
-  <div class="row">
+  <div class="row opacity">
     <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
       <h3 class= "text-center">Issue support</h3>
         <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
@@ -33,34 +33,13 @@
         <%= render 'issues/start_page' %>
       <% else %>
         <%= render 'issues/start_page_participant' %>
-
+      <% end %>
 <div class="container">
 
   <div class="instructions-content">
     <p>ABOUT INSTRUCTIONS</p>
     <button type="button" class="btn btn-link text-white"><span class="back-button"><</span></button>
   </div>
-
-  <div id="start-page" class=""> <!-- hidden-container -->
-    <% if @issue.user == current_user && @issue.solutions.count.zero? %>
-      <%= render 'issues/start_page' %>
-    <% elsif @issue.user != current_user && @issue.solutions.count.zero? %>
-      <%= render 'issues/start_page_participant' %>
-    <% end %>
-  </div>
-
-<!--   <h1 class="text-white"><%= @issue.title %></h1>
- -->
-  <% if !@issue.support.file.nil? %>
-    <div class="row opacity">
-      <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
-        <h3 class= "text-center">Issue support</h3>
-          <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
-          <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale, class: "support" %>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
 
   <div class="row hidden-container opacity">
     <div data-aos="zoom-in" class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container">
@@ -102,7 +81,6 @@
 
     ///////////////////////////////////
 
-  <script>
     const participantsList = document.getElementById('participants-list');
     const currentStep = document.getElementById('current_step');
 
