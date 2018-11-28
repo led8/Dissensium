@@ -111,6 +111,10 @@
             case 'new_votes':
               currentStep.innerHTML = data.new_votes_partial;
               console.log(data);
+            break;
+            case 'display_results':
+            console.log(data);
+              currentStep.innerHTML = data.results_partial;
             default:
               console.log('No action ' + data.action + '.');
           }

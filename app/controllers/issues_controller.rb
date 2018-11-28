@@ -40,6 +40,22 @@ class IssuesController < ApplicationController
   end
 
   def results
+     @issue = Issue.includes(solutions: :user).find(params[:id])
+     ActionCable.server.broadcast("issue_#{params[:id]}", {
+      action: "display_results",
+      results_partial: ApplicationController.renderer.render(
+        partial: "issues/results",
+        locals: { issue: @issue }
+      )
+    })
+    ActionCable.server.broadcast("issue_leader_#{params[:id]}", {
+      action: "display_results",
+      results_partial: ApplicationController.renderer.render(
+        partial: "issues/results",
+        locals: { issue: @issue, leader: true }
+      )
+    })
+
   end
 
   private
