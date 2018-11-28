@@ -59,6 +59,13 @@
   border-radius: 2px;
 }
 
+.container-overflow-vote {
+  overflow: scroll;
+  height: 550px;
+  padding: 10px;
+  border-radius: 2px;
+}
+
 .hidden-container{
   display:none;
 }
@@ -125,8 +132,14 @@
   100% {opacity: 0.3}
 }
 
+.transparent-solution-container {
+  font-family: 'Hammersmith One', sans-serif;
+  & h2 {
+    color: white;
+  }
+}
+
 .solution-container {
-  margin-top: 20px;
   & .asset-title {
     margin-bottom: 20px;
   }

@@ -10,29 +10,28 @@
 <% if @issue.owned_by?(current_user) %>
   <div id="participants-list">
     <ul>
-
     </ul>
   </div>
 <% end %>
 
-<% if !@issue.support.file.nil? %>
-  <div class="row opacity">
-    <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
-      <h3 class= "text-center">Issue support</h3>
-        <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
-        <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale, class: "support" %>
-      <% end %>
-    </div>
-  </div>
-<% end %>
-
-<div class="instructions-content">
+<div class="container">
+  <div class="instructions-content">
     <p>ABOUT INSTRUCTIONS</p>
     <button type="button" class="btn btn-link text-white"><span class="back-button"><</span></button>
-</div>
+  </div>
 
-<div class="container">
-  <div id="current_step">
+  <% if !@issue.support.file.nil? %>
+    <div class="row opacity">
+      <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
+        <h3 class= "text-center">Issue support</h3>
+          <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
+          <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale, class: "support" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="opacity" id="current_step">
     <div id="start-page" class="">
       <% if @issue.owned_by?(current_user) %>
         <%= render 'issues/start_page' %>
