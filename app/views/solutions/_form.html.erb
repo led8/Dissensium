@@ -16,7 +16,20 @@
       </div>
     </div>
 <% end %>
+
 <% if !local_assigns[:leader] %>
+  <% if issue.solutions != [] %>
+    <div class="row">
+      <div class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5">
+        <h3 class="text-center text-white border-bottom"><div class="asset-title">Creative asset list</div></h3>
+        <div id="chat-container" class="container-overflow">
+          <% issue.solutions.each do |solution| %>
+            <%= render "solutions/solution", solution: solution %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+   <% end %>
   <div id="solution_form" class="col-xs-12 offset-md-1 col-md-10 transparent-solutionn-container solution-container">
     <%= simple_form_for [issue, solution], remote: true do |f| %>
       <%= f.label :My_solution, class: "label-style-devise mt-3" %>
