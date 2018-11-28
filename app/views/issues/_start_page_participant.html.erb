@@ -1,9 +1,14 @@
-    <div id="waiting-p-participant" class="landing-container">
-      <h1 class="text-white text-center"><%= @issue.title %></h1>
-      <div class="white-container landing-container">
-        <div class="">
-          <h4>WAITING PAGE</h4>
-        </div>
+<div class="row">
+  <div class="col-12 offset-md-1 col-md-10">
+    <div class="start-container landing-container">
+      <div id="waiting-p-participant">
+        <h6 class="text-white text-center">Hello <strong class="text-uppercase"><%= current_user.username %></strong> welcome onboard "<%= @issue.title %>"</h6>
+        <div class="border-bottom mt-4"></div>
+          <div data-aos="zoom-in" class="waiting-container">
+            <h6 class="text-white text-center"><strong>Before start</strong> you have to wait the leader</h6>
+          </div>
       </div>
     </div>
+  </div>
+</div>
 

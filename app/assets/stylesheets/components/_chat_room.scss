@@ -1,32 +1,26 @@
-.messages {
-  font-size: 14px;
-  color: #868686;
-  background-color: #ffffff;
-  padding: 20px;
-  border: 1px solid #ececec;
-  border-top: none;
-  border-bottom-width: 0;
-  max-height: calc(100vh - 70px - 45px - 61px - 30px);
-  overflow: scroll;
-}
-
 .message {
   display: flex;
   margin-bottom: 10px;
+  color: white;
   &.right {
     flex-direction: row-reverse;
     .solution-content {
       text-align: right;
-      background-color: #65cfed;
+      background: rgba(255, 255, 255, 0.3);
+      border: none;
+      border-radius: 3px;
     }
   }
 }
 .solution-content {
-  background-color: #F7F7F7;
-  border-radius: 3px;
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   margin: 0 10px;
   padding: 11px 10px 8px 10px;
-  width: 100%;
+  width: 80%;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  border-radius: none;
 }
 
 #create-message {

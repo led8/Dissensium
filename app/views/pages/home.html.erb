@@ -32,14 +32,14 @@
 
  <div class="d-flex justify-content-around">
    <%= link_to "Create a meeting", new_issue_path, class: "dissensium-home-link" %>
-   <%= link_to "Join a meeting", root_path, class: "dissensium-home-link" %>
+   <%= link_to "Join a meeting", join_path, class: "dissensium-home-link" %>
  </div>
 </div>
 
 <div class="meeting-list">
   <ul id="meetings">
    <li><div class="meeting-hover"><%= link_to "Create a meeting", new_issue_path, class: "dissensium-meeting-link" %></div></li>
-   <li><div class="meeting-hover"><%= link_to "Join a meeting", root_path, class: "dissensium-meeting-link" %></div></li>
+   <li><div class="meeting-hover"><%= link_to "Join a meeting", join_path, class: "dissensium-meeting-link" %></div></li>
   </ul>
 </div>
 

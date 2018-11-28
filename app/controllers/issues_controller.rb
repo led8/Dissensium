@@ -39,6 +39,9 @@ class IssuesController < ApplicationController
     })
   end
 
+  def results
+  end
+
   private
 
   def issue_params

@@ -1,10 +1,19 @@
 .btn-start{
   position: absolute;
-  bottom: 20px;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 24px;
-  width: 70%;
+  bottom: 40px;
+  right: 70px;
+  width: 15%;
+  margin-top: 30px;
+  font-family: 'Montserrat', sans-serif;
+  border: 1px solid #093637;
+  background: #093637;
+  color: white;
+  &:hover {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    box-shadow: none;
+  }
 }
 
 .button-style-signup {
@@ -59,5 +68,32 @@
     color: #44A08D;
     border-color: white;
     text-decoration: none;
+  }
+}
+
+.btn-send {
+  width: 25%;
+  font-family: 'Montserrat', sans-serif;
+  border: 1px solid #093637;
+  background: #093637;
+  color: white;
+  &:hover {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+  }
+}
+
+.btn-vote {
+  padding: 0 20px;
+  margin-left: 20px;
+  font-family: 'Montserrat', sans-serif;
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  &:hover {
+    background: white;
+    color: #44A08D;
+    border-color: white;
   }
 }

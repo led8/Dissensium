@@ -1,12 +1,22 @@
 <%= render 'shared/navbar-logo' %>
 <%= render 'shared/flashes' %>
 
+<div class="issue-list">
+  <ul id="list">
+    <li><div class="list-hover">Instructions</div></li>
+  </ul>
+</div>
+
 <% if @issue.owned_by?(current_user) %>
-  <%= render 'participants_list' %>
+  <div id="participants-list">
+    <ul>
+
+    </ul>
+  </div>
 <% end %>
 
 <% if !@issue.support.file.nil? %>
-  <div class="row">
+  <div class="row opacity">
     <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
       <h3 class= "text-center">Issue support</h3>
         <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
@@ -24,13 +34,54 @@
       <% else %>
         <%= render 'issues/start_page_participant' %>
       <% end %>
+<div class="container">
+
+  <div class="instructions-content">
+    <p>ABOUT INSTRUCTIONS</p>
+    <button type="button" class="btn btn-link text-white"><span class="back-button"><</span></button>
+  </div>
+
+  <div class="row hidden-container opacity">
+    <div data-aos="zoom-in" class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container">
+      <h3 class="text-center text-white border-bottom"><div class="asset-title">Creative asset list</div></h3>
+      <div id="chat-container" class="container-overflow">
+        <% @issue.solutions.each do |solution| %>
+          <%= render "solutions/solution", solution: solution, vote: @vote, user_is_solutions_author: solution.user == current_user %>
+        <% end %>
+      </div>
+      <%= simple_form_for [@issue, @solution], remote: true, html: {autocomplete: "off" } do |f| %>
+        <%= f.label :My_solution, class: "label-style-devise mt-3" %>
+        <%= f.input_field :content, class: "form-control devise-style" %>
+        <%= f.button :submit, 'Send my solution', class: "form-control btn-send" %>
+
+      <% end %>
     </div>
   </div>
-</div>
 
 <% content_for :after_js do %>
-
   <script>
+
+    ///////////////////////////////////
+
+  const list = document.querySelector(".list-hover");
+  const instructions = document.querySelector(".instructions-content");
+  const opacity = document.querySelector(".opacity");
+  const back = document.querySelector(".back-button");
+
+    list.addEventListener("click", (event) => {
+        opacity.style.opacity = 0.1;
+        opacity.style.transition = "all 1s";
+        instructions.style.left = "144px";
+    });
+
+    back.addEventListener("click", (event) => {
+      instructions.style.left = "-1000px";
+      opacity.style.opacity = 1;
+    });
+
+    ///////////////////////////////////
+
+    const participantsList = document.getElementById('participants-list');
     const currentStep = document.getElementById('current_step');
     const currentSolutions = document.getElementById('current_solutions')
     App.cable.subscriptions.create(
@@ -58,6 +109,9 @@
           switch (data.action) {
             case 'subscribed':
               console.log("User " + data.current_user_id + " subscribed");
+              if (checkUserConnection(data.current_user_id) == true){
+                participantsList.firstElementChild.insertAdjacentHTML("beforeend", data.user_partial)
+              };
               break;
             case 'new_solution':
               currentStep.innerHTML = data.new_solution_partial;
@@ -67,6 +121,9 @@
               solutionsContainer = document.querySelector('.container-overflow');
               solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial);
             break;
+            case 'create_solution':
+              addTextToUserIcon(data.current_user_id, data.solution_hint)
+              break;
             case 'new_votes':
               currentStep.innerHTML = data.new_votes_partial;
               console.log(data);
@@ -74,7 +131,23 @@
               console.log('No action ' + data.action + '.');
           }
 
-          // const owner_issue_id = <%= @issue.user.id %>;
+          function checkUserConnection(user_id) {
+            const current_user_partial = participantsList.firstElementChild.querySelector('#user' + user_id);
+              return current_user_partial == null;
+          }
+
+          function addTextToUserIcon(user_id, text) {
+            if (checkUserConnection(user_id) != true){
+              const current_user_partial = participantsList.firstElementChild.querySelector('#user' + user_id);
+              current_user_partial.append(text);
+            };
+          }
+
+          // //       // si ce n'est pas le cas -> on en ajoute
+          //       if (current_user_partial == null) {
+          //           count_users += 1;
+          //           current_partial_users.lastElementChild.insertAdjacentHTML('beforeend', data.user_partial);
+          //       };
           // const current_user_id = <%= current_user.id %>;
           // const current_broadcaster_id = data.current_user_id;
           // const partial_solution = data.solution_partial;
@@ -90,12 +163,6 @@
 
           //   } else {
           //     // Vérifier si il y a déjà une icone pour cet utilisateur
-          //       const current_user_partial = current_partial_users.firstElementChild.querySelector('#user' + current_broadcaster_id);
-          //       // si ce n'est pas le cas -> on en ajoute
-          //       if (current_user_partial == null) {
-          //           count_users += 1;
-          //           current_partial_users.lastElementChild.insertAdjacentHTML('beforeend', data.user_partial);
-          //       };
           //   };
           // };
           // // Gestion d'affichage de la start page pour les participants
