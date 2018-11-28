@@ -9,7 +9,6 @@ class Issue < ApplicationRecord
   def owned_by?(user)
     self.user == user
   end
-
 # To generate a random link
   # def to_param
   #   Digest::SHA1.hexdigest "#{id} #{title}"

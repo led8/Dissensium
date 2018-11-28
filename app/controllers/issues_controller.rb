@@ -44,7 +44,7 @@ class IssuesController < ApplicationController
      ActionCable.server.broadcast("issue_#{params[:id]}", {
       action: "display_results",
       results_partial: ApplicationController.renderer.render(
-        partial: "solutions/waiting_page",
+        partial: "issues/results",
         locals: { issue: @issue }
       )
     })
@@ -54,6 +54,25 @@ class IssuesController < ApplicationController
         partial: "issues/results",
         locals: { issue: @issue, leader: true }
       )
+    })
+
+  end
+
+  def final_result
+    @issue = Issue.includes(solutions: :user).find(params[:id])
+     ActionCable.server.broadcast("issue_#{params[:id]}", {
+      action: "final_result",
+      final_result_partial: ApplicationController.renderer.render(
+        partial: "issues/final_result",
+        locals: { issue: @issue }
+      )
+    })
+    ActionCable.server.broadcast("issue_leader_#{params[:id]}", {
+      action: "final_result",
+      final_result_partial: ApplicationController.renderer.render(
+        partial: "issues/final_result",
+        locals: { issue: @issue, leader: true }
+        )
     })
 
   end
