@@ -23,18 +23,18 @@ class IssuesController < ApplicationController
 
   def start
     @issue = Issue.includes(solutions: :user).find(params[:id])
-    ActionCable.server.broadcast("issue_#{params[:id]}", {
+     ActionCable.server.broadcast("issue_#{params[:id]}", {
       action: "new_solution",
       new_solution_partial: ApplicationController.renderer.render(
         partial: "solutions/form",
-        locals: { issue: @issue, solution: @issue.solutions.new }
+        locals: { issue: @issue, solution: Solution.new }
       )
     })
     ActionCable.server.broadcast("issue_leader_#{params[:id]}", {
       action: "new_solution",
       new_solution_partial: ApplicationController.renderer.render(
         partial: "solutions/form",
-        locals: { issue: @issue, solution: @issue.solutions.new, leader: true }
+        locals: { issue: @issue, solution: Solution.new, leader: true }
       )
     })
   end

@@ -1,14 +1,12 @@
 <%= simple_form_for :votes, url: issue_votes_path(issue), remote: true do |f| %>
-
-  <% solutions.each do |solution| %>
-    <h3>
-      <%= solution.content %>
-    </h3>
-    <%= f.simple_fields_for "solution_#{solution.id}", Vote.new do |v| %>
-      <%= v.input :solution_id, input_html: { value: solution.id } %>
-      <%= v.input :rating, as: :radio_buttons, collection: (1..5) %>
+  <div class="container-overflow">
+    <% solutions.each do |solution| %>
+      <h3><%= solution.content %></h3>
+        <%= f.simple_fields_for "solution_#{solution.id}", Vote.new do |v| %>
+        <%= v.input :solution_id, input_html: { value: solution.id } %>
+        <%= v.input :rating, as: :radio_buttons, collection: (1..5) %>
+      <% end %>
     <% end %>
-  <% end %>
-
+  </div>
   <%= f.submit %>
 <% end %>
