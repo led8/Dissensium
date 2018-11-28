@@ -111,6 +111,9 @@
               currentStep.innerHTML = data.new_votes_partial;
               console.log(data);
             break;
+            case 'create_votes':
+              addTextToUserIcon(data.current_user_id, data.solution_hint)
+              break;
             case 'display_results':
             console.log(data);
               currentStep.innerHTML = data.results_partial;
@@ -126,7 +129,8 @@
           function addTextToUserIcon(user_id, text) {
             if (checkUserConnection(user_id) != true){
               const current_user_partial = participantsList.firstElementChild.querySelector('#user' + user_id);
-              current_user_partial.append(text);
+                textSpan = current_user_partial.querySelector(".connected-text");
+                textSpan.innerText = text;
             };
           }
 
