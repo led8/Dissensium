@@ -21,14 +21,6 @@ class SolutionsController < ApplicationController
   end
 
   def broadcast_solution
-    ActionCable.server.broadcast("issue_#{@solution.issue.id}", {
-      action: "solutions",
-      solution_partial: ApplicationController.renderer.render(
-        partial: "solutions/solution",
-        locals: { solution: @solution }
-      ),
-      current_user_id: @solution.user.id
-    })
 
     ActionCable.server.broadcast("issue_leader_#{@solution.issue.id}", {
       action: "solutions",
