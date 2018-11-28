@@ -7,7 +7,7 @@
           <h3 class="vote-content"><%= solution.content %></h3>
           <div class="seperate-content mb-3">
               <%= f.simple_fields_for "solution_#{solution.id}", Vote.new do |v| %>
-              <%= v.input :solution_id, input_html: { value: solution.id } %>
+              <%= v.input :solution_id, input_html: { value: solution.id }, as: :hidden %>
               <%= v.collection_radio_buttons :rating, [[5, "Excellent"], [4, "Très bien"], [3, "Bien"], [2, "Passable"], [1, "Insuffisant"]], :first, :last %>
           <% end %>
           </div>
@@ -15,7 +15,7 @@
       </div>
       <%= f.button :submit, class: "form-control btn-send" %>
       <% if local_assigns[:leader] %>
-        <%= link_to "Next Step", results_issue_path(issue), issue: issue, remote: true %>
+        <%= link_to "Next Step", results_issue_path(issue), issue: issue, remote: true, class: "badge badge-pill badge-info ml-2 py-2 px-3 btn-step" %>
       <% end %>
     <% end %>
   </div>
