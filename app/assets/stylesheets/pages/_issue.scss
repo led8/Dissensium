@@ -64,11 +64,28 @@
 
 .meeting-title {
   position: absolute;
+  top: 5px;
   right: 50%;
   transform: translateX(50%);
   padding: 10px;
   font-family: 'Montserrat', sans-serif;
-  max-width: 700px;
+  overflow-x: scroll;
+  width: 750px;
+  max-height: 70px;
+  text-align: center;
+}
+
+.participants-title {
+  position: absolute;
+  top: 5px;
+  right: 50%;
+  transform: translateX(50%);
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  overflow-x: scroll;
+  width: 750px;
+  max-height: 70px;
+  text-align: center;
 }
 
 .meeting-url {
