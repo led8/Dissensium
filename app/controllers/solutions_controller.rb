@@ -1,4 +1,5 @@
 class SolutionsController < ApplicationController
+  after_action :broadcast_solution, only: [:create]
 
   def create
     @solution = Solution.new(solution_params)
@@ -16,6 +17,26 @@ class SolutionsController < ApplicationController
         format.js
       end
     end
+  end
+
+  def broadcast_solution
+    ActionCable.server.broadcast("issue_#{@solution.issue.id}", {
+      action: "solutions",
+      solution_partial: ApplicationController.renderer.render(
+        partial: "solutions/solution",
+        locals: { solution: @solution }
+      ),
+      current_user_id: @solution.user.id
+    })
+
+    ActionCable.server.broadcast("issue_leader_#{@solution.issue.id}", {
+      action: "solutions",
+      solution_partial: ApplicationController.renderer.render(
+        partial: "solutions/solution",
+        locals: { solution: @solution, leader: true }
+      ),
+      current_user_id: @solution.user.id
+    })
   end
 
   private

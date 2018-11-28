@@ -1,9 +1,24 @@
+<% if local_assigns[:leader] || (solution.votes != []) %>
+  <% unless issue.solutions == [] %>
+    <div class="row">
+      <div data-aos="zoom-in" class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
+        <h3>Creative asset list</h3>
+        <div id="chat-container" class="container-overflow">
+          <% issue.solutions.each do |solution| %>
+            <%= render "solutions/solution", solution: solution %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
 
-<div id="solution_form">
+<div id="solution_form" class="white-container">
+
+
   <%= simple_form_for [issue, solution], remote: true do |f| %>
-    <%= f.input :content %>
-
-    <%= f.submit %>
+    <%= f.input_field :content, class: "label-style form-control" %>
+    <%= f.button :submit, 'Send my solution', class: "form-control button-style" %>
   <% end %>
 </div>
 

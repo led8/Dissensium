@@ -32,7 +32,7 @@
 
   <script>
     const currentStep = document.getElementById('current_step');
-
+    const currentSolutions = document.getElementById('current_solutions')
     App.cable.subscriptions.create(
       {
         <% if @issue.user == current_user %>
@@ -44,7 +44,6 @@
       },
       {
         connected: () => {
-
           // var testSolutionContent = document.querySelector(".solution-content")
           // if (testSolutionContent != null ) {
           //   var solutions = document.querySelector(".hidden-container")
@@ -64,6 +63,10 @@
               currentStep.innerHTML = data.new_solution_partial;
               console.log(data);
               break;
+            case 'solutions':
+              solutionsContainer = document.querySelector('.container-overflow');
+              solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial);
+            break;
             case 'new_votes':
               currentStep.innerHTML = data.new_votes_partial;
               console.log(data);
@@ -111,10 +114,6 @@
           //     if (current_user_id == current_broadcaster_id) {
           //       class_message = 'message right'
           //     };
-          //   if (data.solution_partial != null){
-          //     var solutionsContainer = document.querySelector('.container-overflow');
-          //     solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
-          //   };
           // };
           // if (data.vote_partial != null){
           //   let solution = document.getElementById(data.solution)
@@ -122,8 +121,11 @@
           //   if (count_votes == count_users) {
           //     solution.innerHTML = data.vote_partial;
           //   };
+          //   if (data.solution_partial != null){
+          //     var solutionsContainer = document.querySelector('.container-overflow');
+          //     solutionsContainer.insertAdjacentHTML('beforeend', data.solution_partial.replace('message',class_message));
+          //   };
           // };
-
           // var input = document.querySelector('#solution_content');
           // input.value = '';
           // input.blur();

@@ -1,7 +1,7 @@
 <div class="landing-container">
   <h1 class="text-white text-center"><%= @issue.title %></h1>
   <div class="white-container landing-container">
-    <%= link_to "START MEETING", start_issue_path(@issue), method: :post, remote: true %>
+    <%= link_to "START MEETING", start_issue_path(@issue), method: :post, remote: true, class: " btn button-style btn-start" %>
   </div>
 </div>
 
