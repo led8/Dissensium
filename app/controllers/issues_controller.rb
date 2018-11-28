@@ -11,7 +11,6 @@ class IssuesController < ApplicationController
   end
 
   def create
-
     @issue = Issue.new(issue_params)
     @issue.user = current_user
 
@@ -26,6 +25,9 @@ class IssuesController < ApplicationController
     @issue = Issue.includes(solutions: :user).find(params[:id])
     titre = { title: @issue.title }
     @issue.update(titre)
+  end
+
+  def results
   end
 
   private

@@ -1,9 +1,25 @@
-    <div class="landing-container">
-      <h1 class="text-white text-center"><%= @issue.title %></h1>
-      <div class="white-container landing-container">
-          <%= simple_form_for [@issue], remote: true, html: {autocomplete: "off" } do |f| %>
-            <%= f.button :submit, 'START MEETING', class: " btn button-style btn-start", id: "start-meeting-btn" %>
-          <% end %>
+<div class="row">
+  <div class="col-12 offset-md-1 col-md-10">
+    <div class="start-container landing-container mt-4">
+      <p data-aos="zoom-in" class="meeting-user"><%= current_user.username  %></p>
+      <h6 class="meeting-title text-white">You are the leader of "<%= @issue.title %>"</h6>
+      <div class="border-bottom mt-5"></div>
+      <div data-aos="zoom-in" class="url-container">
+        <h6 class="text-center text-white"><strong>Before start</strong> share this URL with your collaborators</h6>
+        <p class="meeting-url text-center">localhost:3000<%= issue_path(@issue) %></p>
       </div>
-    </div>
+      <div data-aos="zoom-in" class="collaborators-container">
+        <h6 class="text-center text-white"><strong>Wait</strong> until all collaborators are logged</h6>
+        <% if @issue.user == current_user %>
+          <%= render 'participants_list' %>
+        <% end %>
+      </div>
 
+      <%= simple_form_for [@issue], remote: true, html: {autocomplete: "off" } do |f| %>
+        <%= f.button :submit, 'Start meeting', class: "btn btn-start", id: "start-meeting-btn" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!-- issue_path(@issue) -->

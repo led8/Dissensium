@@ -1,5 +1,5 @@
 .issue-list {
-  border-right: 1px solid rgba(255, 255, 255, 0.3);
+  border-right: 1px solid white;
   display: inline-block;
   position: absolute;
   top: 50%;
@@ -14,10 +14,8 @@
   & li .list-hover {
     font-family: 'Montserrat', sans-serif;
     font-size: 14px;
-    opacity: 0.5;
   }
   & li .list-hover:hover {
-    opacity: 1;
     cursor: pointer;
     list-style: circle;
     font-weight: bold;
@@ -50,4 +48,47 @@
     right: 4vh;
     top: 1vh;
   }
+}
+
+.meeting-user {
+  position: absolute;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  border: 1px solid #093637;
+  padding: 5px 10px;
+  border-radius: 3px;
+  background: #093637;
+  color: white;
+  font-weight: bold;
+}
+
+.meeting-title {
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  padding: 10px;
+  font-family: 'Montserrat', sans-serif;
+  max-width: 700px;
+}
+
+.meeting-url {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  border: 1px solid white;
+  padding: 5px 10px;
+  border-radius: 3px;
+  background: #44A08D;
+  color: white;
+  font-weight: bold;
+}
+
+.connected-user {
+  list-style: none;
+}
+
+.connected-text {
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 12px;
+  margin-left: 15px;
 }

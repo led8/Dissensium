@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users
 
   root to: 'pages#home'
+  get 'join', to: 'pages#join', as: :join
+
 
   resources :users, only: [:show]
   resources :issues, only: [ :new, :create, :show , :update], shallow: true do

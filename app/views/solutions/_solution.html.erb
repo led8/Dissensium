@@ -1,14 +1,12 @@
-  <div class="message <%= user_is_solutions_author ? "right" : ""%>">
-    <div class="solution-content">
-      <%= solution.content %>
-      <div id= "<%= solution.id %>">
-        <%= render "votes/vote",solution: solution %>
+    <div class="message <%= user_is_solutions_author ? "right" : ""%>">
+      <div class="solution-content">
+        <%= solution.content %>
+        <div id= "<%= solution.id %>">
+          <%= render "votes/vote",solution: solution %>
+        </div>
+        <%= simple_form_for [solution, vote], remote: true, html: {autocomplete: "off" } do |f| %>
+          <%= f.collection_radio_buttons :rating, [[5, " 5"], [4, "4"], [3, "3"], [2, "2"], [1, "1"]], :first, :last %>
+          <%= f.submit 'Vote', class: "btn btn-vote" %>
+        <% end %>
       </div>
-      <%= simple_form_for [solution, vote], remote: true, html: {autocomplete: "off" } do |f| %>
-        <%= f.collection_radio_buttons :rating, [[5, "5"], [4, "4"], [3, "3"], [2, "2"], [1, "1"]], :first, :last %>
-        <%= f.submit 'Vote', class: "btn btn-success" %>
-      <% end %>
-
     </div>
-  </div>
-
