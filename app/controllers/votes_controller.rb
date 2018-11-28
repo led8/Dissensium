@@ -5,6 +5,7 @@ class VotesController < ApplicationController
 
     solutions = @issue.solutions
 
+
     # TODO: keep only solutions that have enough votes
 
     ActionCable.server.broadcast("issue_#{params[:issue_id]}", {
@@ -27,6 +28,8 @@ class VotesController < ApplicationController
 
     current_user.votes.create(votes_params)
 
+    # compter le nombre de solution pour lancer le broadcast_solution_create(vote)
+
     # ajax response with "thanks for your vote"
 
     # broadcast votes infos to leader
@@ -46,6 +49,17 @@ class VotesController < ApplicationController
   end
 
   private
+
+  # def broadcast_solution_create(vote)
+  #   ActionCable.server.broadcast("issue_#{vote.solution.issue.id}", {
+  #     current_user_id: current_user.id,
+  #     action: "create_vote",
+  #     solution_hint: " is ready" })
+  #   ActionCable.server.broadcast("issue_leader_#{vote.solution.issue.id}", {
+  #     current_user_id: current_user.id,
+  #     action: "create_vote",
+  #     solution_hint: " is ready" })
+  # end
 
   def votes_params
     params_to_return = []

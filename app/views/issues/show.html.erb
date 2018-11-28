@@ -111,6 +111,9 @@
             case 'new_votes':
               currentStep.innerHTML = data.new_votes_partial;
               console.log(data);
+            case 'create_vote':
+              addTextToUserIcon(data.current_user_id, data.solution_hint)
+              break;
             default:
               console.log('No action ' + data.action + '.');
           }
