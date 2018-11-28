@@ -44,7 +44,7 @@ class IssuesController < ApplicationController
      ActionCable.server.broadcast("issue_#{params[:id]}", {
       action: "display_results",
       results_partial: ApplicationController.renderer.render(
-        partial: "issues/results",
+        partial: "solutions/waiting_page",
         locals: { issue: @issue }
       )
     })

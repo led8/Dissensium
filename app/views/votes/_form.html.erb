@@ -15,7 +15,7 @@
       </div>
       <%= f.button :submit, class: "form-control btn-send" %>
       <% if local_assigns[:leader] %>
-        <%= link_to "Next Step", results_issue_path(issue), issue: issue, remote: true %>
+        <%= link_to "Next Step", results_issue_path(issue), issue: issue, remote: true, class: "badge badge-pill badge-info ml-2 py-2 px-3 btn-step" %>
       <% end %>
     <% end %>
   </div>
