@@ -42,7 +42,12 @@ class SolutionsController < ApplicationController
     ActionCable.server.broadcast("issue_leader_#{solution.issue.id}", {
       current_user_id: current_user.id,
       action: "create_solution",
-      solution_hint: " is ready" })
+      solution_hint: " is ready",
+      button_next_partial: ApplicationController.renderer.render(
+        partial: "solutions/button_next_leader",
+        locals: { issue: solution.issue, leader: true }
+      )
+      })
   end
 
   def solution_params
