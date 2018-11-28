@@ -8,7 +8,7 @@
 </div>
 
 <% if @issue.owned_by?(current_user) %>
-  <div id="participants-list">
+  <div id="participants-list" class="hidden-container">
     <ul>
     </ul>
   </div>
@@ -65,6 +65,8 @@
     ///////////////////////////////////
 
     const participantsList = document.getElementById('participants-list');
+    const collaboratorsList = document.getElementById('collaborators-list');
+    const displayParticipantsList = document.querySelector(".hidden-container");
     const currentStep = document.getElementById('current_step');
     const currentSolutions = document.getElementById('current_solutions')
     App.cable.subscriptions.create(
@@ -94,9 +96,13 @@
               console.log("User " + data.current_user_id + " subscribed");
               if (checkUserConnection(data.current_user_id) == true){
                 participantsList.firstElementChild.insertAdjacentHTML("beforeend", data.user_partial)
+                if (collaboratorsList != null) {
+                collaboratorsList.firstElementChild.insertAdjacentHTML("beforeend", data.user_partial)
+                };
               };
               break;
             case 'new_solution':
+              displayParticipantsList.style.display = "inline";
               currentStep.innerHTML = data.new_solution_partial;
               console.log(data);
               break;
