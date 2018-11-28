@@ -1,6 +1,12 @@
 <%= render 'shared/navbar-logo' %>
 <%= render 'shared/flashes' %>
 
+<div class="issue-list">
+  <ul id="list">
+    <li><div class="list-hover">Instructions</div></li>
+  </ul>
+</div>
+
 <% if @issue.owned_by?(current_user) %>
   <div id="participants-list">
     <ul>
@@ -27,12 +33,74 @@
         <%= render 'issues/start_page' %>
       <% else %>
         <%= render 'issues/start_page_participant' %>
+
+<div class="container">
+
+  <div class="instructions-content">
+    <p>ABOUT INSTRUCTIONS</p>
+    <button type="button" class="btn btn-link text-white"><span class="back-button"><</span></button>
+  </div>
+
+  <div id="start-page" class=""> <!-- hidden-container -->
+    <% if @issue.user == current_user && @issue.solutions.count.zero? %>
+      <%= render 'issues/start_page' %>
+    <% elsif @issue.user != current_user && @issue.solutions.count.zero? %>
+      <%= render 'issues/start_page_participant' %>
+    <% end %>
+  </div>
+
+<!--   <h1 class="text-white"><%= @issue.title %></h1>
+ -->
+  <% if !@issue.support.file.nil? %>
+    <div class="row opacity">
+      <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
+        <h3 class= "text-center">Issue support</h3>
+          <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
+          <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale, class: "support" %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="row hidden-container opacity">
+    <div data-aos="zoom-in" class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container">
+      <h3 class="text-center text-white border-bottom"><div class="asset-title">Creative asset list</div></h3>
+      <div id="chat-container" class="container-overflow">
+        <% @issue.solutions.each do |solution| %>
+          <%= render "solutions/solution", solution: solution, vote: @vote, user_is_solutions_author: solution.user == current_user %>
+        <% end %>
+      </div>
+      <%= simple_form_for [@issue, @solution], remote: true, html: {autocomplete: "off" } do |f| %>
+        <%= f.label :My_solution, class: "label-style-devise mt-3" %>
+        <%= f.input_field :content, class: "form-control devise-style" %>
+        <%= f.button :submit, 'Send my solution', class: "form-control btn-send" %>
+
       <% end %>
     </div>
   </div>
-</div>
 
 <% content_for :after_js do %>
+  <script>
+
+    ///////////////////////////////////
+
+  const list = document.querySelector(".list-hover");
+  const instructions = document.querySelector(".instructions-content");
+  const opacity = document.querySelector(".opacity");
+  const back = document.querySelector(".back-button");
+
+    list.addEventListener("click", (event) => {
+        opacity.style.opacity = 0.1;
+        opacity.style.transition = "all 1s";
+        instructions.style.left = "144px";
+    });
+
+    back.addEventListener("click", (event) => {
+      instructions.style.left = "-1000px";
+      opacity.style.opacity = 1;
+    });
+
+    ///////////////////////////////////
 
   <script>
     const participantsList = document.getElementById('participants-list');

@@ -1,20 +1,8 @@
 <%= render 'shared/navbar-logo' %>
 <%= render 'shared/flashes' %>
 
-<div class="issue-list">
-  <ul id="list">
-    <li><div class="list-hover">Instructions</div></li>
-  </ul>
-</div>
-
 <div class="container">
-
-  <div class="instructions-content">
-    <p>ABOUT INSTRUCTIONS</p>
-    <button type="button" class="btn btn-link text-white"><span class="back-button"><</span></button>
-  </div>
-
-  <div class="row opacity">
+  <div class="row">
     <div data-aos="zoom-in" class="col-xs-12 offset-md-3 col-md-6 white-container container-margin">
       <h2 class="text-center">Create a meeting</h2>
       <%= simple_form_for @issue do |f| %>
@@ -29,21 +17,3 @@
     </div>
   </div>
 </div>
-
-<script>
-  const list = document.querySelector(".list-hover");
-  const instructions = document.querySelector(".instructions-content");
-  const opacity = document.querySelector(".opacity");
-  const back = document.querySelector(".back-button");
-
-    list.addEventListener("click", (event) => {
-        opacity.style.opacity = 0.1;
-        opacity.style.transition = "all 1s";
-        instructions.style.left = "143px";
-    });
-
-    back.addEventListener("click", (event) => {
-      instructions.style.left = "-1000px";
-      opacity.style.opacity = 1;
-    });
-</script>
