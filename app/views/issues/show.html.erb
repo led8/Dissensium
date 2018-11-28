@@ -122,6 +122,10 @@
             case 'display_results':
             console.log(data);
               currentStep.innerHTML = data.results_partial;
+              break;
+            case 'final_result':
+              currentStep.innerHTML = data.final_result_partial;
+              break;
             default:
               console.log('No action ' + data.action + '.');
           }
