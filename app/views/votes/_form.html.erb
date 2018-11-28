@@ -9,7 +9,7 @@
     <% end %>
   </div>
   <%= f.submit %>
-
+<% if local_assigns[:leader] %>
   <%= link_to "Next Step", results_issue_path(issue), issue: issue, remote: true %>
-
+<% end %>
 <% end %>
