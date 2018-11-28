@@ -1,0 +1,13 @@
+
+<div id="solution_form">
+  <%= simple_form_for [issue, solution], remote: true do |f| %>
+    <%= f.input :content %>
+
+    <%= f.submit %>
+  <% end %>
+</div>
+
+
+<% if local_assigns[:leader] %>
+  <%= link_to "Next Step", new_issue_vote_path(issue), remote: true %>
+<% end %>

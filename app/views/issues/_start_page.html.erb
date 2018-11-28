@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row opacity">
   <div class="col-12 offset-md-1 col-md-10">
     <div class="start-container landing-container mt-4">
       <p data-aos="zoom-in" class="meeting-user"><%= current_user.username  %></p>
@@ -15,9 +15,7 @@
         <% end %>
       </div>
 
-      <%= simple_form_for [@issue], remote: true, html: {autocomplete: "off" } do |f| %>
-        <%= f.button :submit, 'Start meeting', class: "btn btn-start", id: "start-meeting-btn" %>
-      <% end %>
+      <%= link_to "Start meeting", start_issue_path(@issue), method: :post, remote: true, class: "btn btn-start" %>
     </div>
   </div>
 </div>

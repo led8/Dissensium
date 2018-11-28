@@ -1,0 +1,5 @@
+// document.getElementById('solution_form').remove()
+document.getElementById('solution_form').innerHTML="<%= escape_javascript render(:partial => 'solutions/waiting_page')%>";
+
+// you should insert a partial in solution_form instead of removing it,
+// displaying a message like "thanks for your solution, waiting for next step"
