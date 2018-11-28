@@ -27,6 +27,9 @@ class VotesController < ApplicationController
 
     current_user.votes.create(votes_params)
 
+    @issue = Issue.includes(solutions: :user).find(params[:issue_id])
+
+    broadcast_solution_create(@issue)
     # ajax response with "thanks for your vote"
 
     # broadcast votes infos to leader
@@ -53,5 +56,16 @@ class VotesController < ApplicationController
       params_to_return << vote_params.permit(:solution_id, :rating)
     end
     params_to_return
+  end
+
+  def broadcast_solution_create(issue)
+    ActionCable.server.broadcast("issue_#{issue.id}", {
+      current_user_id: current_user.id,
+      action: "create_votes",
+      solution_hint: " has vote" })
+    ActionCable.server.broadcast("issue_leader_#{issue.id}", {
+      current_user_id: current_user.id,
+      action: "create_votes",
+      solution_hint: " has vote" })
   end
 end
