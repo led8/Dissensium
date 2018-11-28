@@ -1,24 +1,30 @@
-<% if local_assigns[:leader] || (solution.votes != []) %>
-    <div class="row opacity">
-      <div data-aos="zoom-in" class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container">
+<% if local_assigns[:leader] %>
+    <div class="row">
+      <div data-aos="zoom-in" class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5">
         <h3 class="text-center text-white border-bottom"><div class="asset-title">Creative asset list</div></h3>
         <div id="chat-container" class="container-overflow">
           <% issue.solutions.each do |solution| %>
             <%= render "solutions/solution", solution: solution %>
           <% end %>
         </div>
+        <%= simple_form_for [issue, solution], remote: true do |f| %>
+          <%= f.label :My_solution, class: "label-style-devise mt-3" %>
+          <%= f.input_field :content, class: "form-control devise-style" %>
+          <%= f.button :submit, 'Send my solution', class: "form-control btn-send" %>
+          <%= link_to "Next Step", new_issue_vote_path(issue), remote: true, class: "badge badge-pill badge-info ml-2 py-2 px-3 btn-step" %>
+        <% end %>
       </div>
     </div>
 <% end %>
 
-  <div id="solution_form" class="white-container">
-    <%= simple_form_for [issue, solution], remote: true do |f| %>
-      <%= f.label :My_solution, class: "label-style-devise mt-3" %>
-      <%= f.input_field :content, class: "form-control devise-style" %>
-      <%= f.button :submit, 'Send my solution', class: "form-control btn-send" %>
-    <% end %>
-  </div>
+  <% if !local_assigns[:leader] %>
+    <div id="solution_form" class="col-xs-12 offset-md-1 col-md-10 transparent-solutionn-container solution-container">
+      <%= simple_form_for [issue, solution], remote: true do |f| %>
+        <%= f.label :My_solution, class: "label-style-devise mt-3" %>
+        <%= f.input_field :content, class: "form-control devise-style" %>
+        <%= f.button :submit, 'Send my solution', class: "form-control btn-send" %>
+      <% end %>
+    </div>
+  <% end %>
 
-<% if local_assigns[:leader] %>
-  <%= link_to "Next Step", new_issue_vote_path(issue), remote: true %>
-<% end %>
+
