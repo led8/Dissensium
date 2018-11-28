@@ -8,7 +8,7 @@
 </div>
 
 <% if @issue.owned_by?(current_user) %>
-  <div id="participants-list" class="hidden-container">
+  <div id="participants-list" >
     <ul>
     </ul>
   </div>
@@ -102,7 +102,6 @@
               };
               break;
             case 'new_solution':
-              displayParticipantsList.style.display = "inline";
               currentStep.innerHTML = data.new_solution_partial;
               console.log(data);
               break;
