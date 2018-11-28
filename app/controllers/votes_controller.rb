@@ -45,6 +45,8 @@ class VotesController < ApplicationController
     # end
   end
 
+
+
   private
 
   def votes_params
