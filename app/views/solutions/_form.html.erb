@@ -21,7 +21,7 @@
 <% if !local_assigns[:leader] %>
   <% if issue.solutions != [] %>
     <div class="row">
-      <div class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5">
+      <div class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5 id="solution-form">
         <h6 class="meeting-title text-white"><strong>The question is <br></strong>"<%= issue.title %>"</h6>
         <div class="border-bottom mt-5"></div>
         <div id="chat-container" class="container-overflow">
@@ -29,16 +29,23 @@
             <%= render "solutions/solution", solution: solution %>
           <% end %>
         </div>
+        <div class="col-xs-12 offset-md-1 col-md-10 transparent-solutionn-container solution-container">
+          <%= simple_form_for [issue, solution], remote: true do |f| %>
+            <%= f.label :My_solution, class: "label-style-devise mt-3" %>
+            <%= f.input_field :content, class: "form-control devise-style" %>
+            <%= f.button :submit, 'Send my solution', class: "form-control btn-send" %>
+          <% end %>
+        </div>
       </div>
     </div>
+  <% else %>
+      <div id="solution_form" class="col-xs-12 offset-md-1 col-md-10 transparent-solutionn-container solution-container">
+        <h6 class="text-white text-center">"<%= issue.title %>"</h6>
+        <%= simple_form_for [issue, solution], remote: true do |f| %>
+          <%= f.label :My_solution, class: "label-style-devise mt-3" %>
+          <%= f.input_field :content, class: "form-control devise-style" %>
+          <%= f.button :submit, 'Send my solution', class: "form-control btn-send" %>
+        <% end %>
+      </div>
    <% end %>
-
-  <div data-aos="zoom-in" id="solution_form" class="col-xs-12 offset-md-1 col-md-10 transparent-solutionn-container solution-container">
-    <h6 class="text-white text-center">"<%= issue.title %>"</h6>
-    <%= simple_form_for [issue, solution], remote: true do |f| %>
-      <%= f.label :My_solution, class: "label-style-devise mt-3" %>
-      <%= f.input_field :content, class: "form-control devise-style" %>
-      <%= f.button :submit, 'Send my solution', class: "form-control btn-send" %>
-    <% end %>
-  </div>
 <% end %>

@@ -48,8 +48,6 @@ class VotesController < ApplicationController
     # end
   end
 
-
-
   private
 
   def votes_params
@@ -68,6 +66,11 @@ class VotesController < ApplicationController
     ActionCable.server.broadcast("issue_leader_#{issue.id}", {
       current_user_id: current_user.id,
       action: "create_votes",
-      solution_hint: " has vote" })
+      solution_hint: " has vote",
+      button_next_partial: ApplicationController.renderer.render(
+        partial: "votes/button_next_leader",
+        locals: { issue: issue, leader: true }
+      )
+    })
   end
 end

@@ -14,3 +14,6 @@
 <% end %>
 
 
+<% if local_assigns[:leader] %>
+  <%= link_to "Finish",  final_result_issue_path(issue), method: :post, remote: true, class: "badge badge-pill badge-info ml-2 py-2 px-3 btn-step" %>
+<% end %>
