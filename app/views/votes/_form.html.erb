@@ -14,6 +14,9 @@
         <% end %>
       </div>
       <%= f.button :submit, class: "form-control btn-send" %>
+      <% if local_assigns[:leader] %>
+        <%= link_to "Next Step", results_issue_path(issue), issue: issue, remote: true %>
+      <% end %>
     <% end %>
   </div>
 </div>

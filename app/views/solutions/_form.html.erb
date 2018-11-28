@@ -16,15 +16,12 @@
       </div>
     </div>
 <% end %>
-
-  <% if !local_assigns[:leader] %>
-    <div id="solution_form" class="col-xs-12 offset-md-1 col-md-10 transparent-solutionn-container solution-container">
-      <%= simple_form_for [issue, solution], remote: true do |f| %>
-        <%= f.label :My_solution, class: "label-style-devise mt-3" %>
-        <%= f.input_field :content, class: "form-control devise-style" %>
-        <%= f.button :submit, 'Send my solution', class: "form-control btn-send" %>
-      <% end %>
-    </div>
-  <% end %>
-
-
+<% if !local_assigns[:leader] %>
+  <div id="solution_form" class="col-xs-12 offset-md-1 col-md-10 transparent-solutionn-container solution-container">
+    <%= simple_form_for [issue, solution], remote: true do |f| %>
+      <%= f.label :My_solution, class: "label-style-devise mt-3" %>
+      <%= f.input_field :content, class: "form-control devise-style" %>
+      <%= f.button :submit, 'Send my solution', class: "form-control btn-send" %>
+    <% end %>
+  </div>
+<% end %>
