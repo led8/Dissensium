@@ -21,13 +21,8 @@
   </div>
 
   <% if !@issue.support.file.nil? %>
-    <div class="row opacity">
-      <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
-        <h3 class= "text-center">Issue support</h3>
-          <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
-          <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale, class: "support" %>
-        <% end %>
-      </div>
+    <div class="text-center">
+      <%= link_to "Support", cl_image_path(@issue.support), target: "_blank", class: "btn btn-support" %>
     </div>
   <% end %>
 
