@@ -1,6 +1,6 @@
 <% if !local_assigns[:leader] %>
-  <div id="vote_form" class="row">
-    <div class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5">
+  <div class="row">
+    <div class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5" id="vote_form">
       <h3 class="text-center text-white border-bottom"><div class="asset-title">Creative vote list</div></h3>
       <%= simple_form_for :votes, url: issue_votes_path(issue), remote: true do |f| %>
         <div class="container-overflow-vote">
@@ -19,8 +19,8 @@
     </div>
   </div>
 <% elsif local_assigns[:leader] %>
-  <div id="vote_form_leader" class="row">
-    <div class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5">
+  <div class="row">
+    <div class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5" id="vote_form_leader">
       <h3 class="text-center text-white border-bottom"><div class="asset-title">Creative vote list</div></h3>
       <%= simple_form_for :votes, url: issue_votes_path(issue), remote: true do |f| %>
         <div class="container-overflow-vote">
