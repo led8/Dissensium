@@ -1,6 +1,7 @@
 <div class="row">
   <div data-aos="zoom-in" class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5">
-    <h3 class="text-center text-white border-bottom"><div class="asset-title">Creative results list</div></h3>
+    <h6 class="meeting-title text-white"><strong>L'objet du meeting est <br><br></strong>"<%= issue.title %>"</h6>
+        <div class="border-bottom mt-5"></div>
     <div class="container-overflow">
       <% issue.solutions.each do |solution| %>
         <% if solution.bobby == " Excellent" %>
