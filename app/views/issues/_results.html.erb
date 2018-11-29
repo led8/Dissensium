@@ -1,6 +1,6 @@
 <div class="row">
   <div data-aos="zoom-in" class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5">
-    <h6 class="meeting-title text-white"><strong>L'objet du meeting est <br><br></strong>"<%= issue.title %>"</h6>
+    <h6 class="meeting-title text-white">Voici le classement des solutions<br><br><strog>issu du vote majoritaire</strog></h6>
         <div class="border-bottom mt-5"></div>
     <div class="container-overflow">
       <% issue.solutions.each do |solution| %>
@@ -38,7 +38,7 @@
 </div>
 
 <% if local_assigns[:leader] %>
-  <%= link_to "Passer à l'étape suivant",  start_issue_path(issue), method: :post, remote: true, class: "badge badge-pill badge-info ml-2 py-2 px-3 btn-step" %>
+  <%= link_to "Recommencer le meeting",  start_issue_path(issue), method: :post, remote: true, class: "badge badge-pill badge-info ml-2 py-2 px-3 btn-step" %>
 <% end %>
 
 
