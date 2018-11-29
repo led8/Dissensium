@@ -112,7 +112,9 @@
             case 'create_solution':
               addTextToUserIcon(data.current_user_id, data.solution_hint)
               if (data.current_user_id == <%= @issue.user.id %>) {
-                document.getElementById('new_solution').innerHTML = data.button_next_partial;
+                if (document.getElementById('new_solution_leader')){
+                document.getElementById('new_solution_leader').innerHTML = data.button_next_partial;
+                };
               };
               break;
             case 'new_votes':
