@@ -1,36 +1,38 @@
 <div class="row">
   <div data-aos="zoom-in" class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5">
     <h3 class="text-center text-white border-bottom"><div class="asset-title">Creative results list</div></h3>
-    <% issue.solutions.each do |solution| %>
-      <% if solution.bobby == " Excellent" %>
-        <h3 class= "vote-content"><%=  solution.content  %></h3>
-        <p class= "vote-content font-italic">Indice | <span class = "text-white font-italic text-success"><%= solution.bobby  %></span></p>
+    <div class="container-overflow">
+      <% issue.solutions.each do |solution| %>
+        <% if solution.bobby == " Excellent" %>
+          <h3 class= "vote-content"><%=  solution.content  %></h3>
+          <p class= "vote-content font-italic seperate-content mb-3">Indice | <span class = "text-white font-italic text-success"><%= solution.bobby  %></span></p>
+        <% end %>
       <% end %>
-    <% end %>
-    <% issue.solutions.each do |solution| %>
-      <% if solution.bobby == " Très bien" %>
-        <h3 class= "vote-content"><%=  solution.content %></h3>
-        <p class= "vote-content font-italic">Indice | <span class = "text-white font-italic text-primary"><%= solution.bobby  %></span></p>
+      <% issue.solutions.each do |solution| %>
+        <% if solution.bobby == " Très bien" %>
+          <h3 class= "vote-content"><%=  solution.content %></h3>
+          <p class= "vote-content font-italic seperate-content mb-3">Indice | <span class = "text-white font-italic text-primary"><%= solution.bobby  %></span></p>
+        <% end %>
       <% end %>
-    <% end %>
-    <% issue.solutions.each do |solution| %>
-      <% if solution.bobby == "  Bien" %>
-        <h3 class= "vote-content"><%=  solution.content %></h3>
-        <p class= "vote-content font-italic">Indice | <span class = "text-white font-italic text-white"><%= solution.bobby  %></span></p>
+      <% issue.solutions.each do |solution| %>
+        <% if solution.bobby == "  Bien" %>
+          <h3 class= "vote-content"><%=  solution.content %></h3>
+          <p class= "vote-content font-italic seperate-content mb-3">Indice | <span class = "text-white font-italic text-white"><%= solution.bobby  %></span></p>
+        <% end %>
       <% end %>
-    <% end %>
-    <% issue.solutions.each do |solution| %>
-      <% if solution.bobby == " Passable" %>
-        <h3 class= "vote-content"><%=  solution.content %></h3>
-        <p class= "vote-content font-italic">Indice | <span class = "text-white font-italic text-warning"><%= solution.bobby  %></span></p>
+      <% issue.solutions.each do |solution| %>
+        <% if solution.bobby == " Passable" %>
+          <h3 class= "vote-content"><%=  solution.content %></h3>
+          <p class= "vote-content font-italic seperate-content mb-3">Indice | <span class = "text-white font-italic text-warning"><%= solution.bobby  %></span></p>
+        <% end %>
       <% end %>
-    <% end %>
-    <% issue.solutions.each do |solution| %>
-      <% if solution.bobby == " Insuffisant" %>
-        <h3 class= "vote-content"><%=  solution.content %></h3>
-        <p class= "vote-content font-italic">Indice | <span class = "text-white font-italic text-danger"><%= solution.bobby  %></span></p>
+      <% issue.solutions.each do |solution| %>
+        <% if solution.bobby == " Insuffisant" %>
+          <h3 class= "vote-content"><%=  solution.content %></h3>
+          <p class= "vote-content font-italic seperate-content mb-3">Indice | <span class = "text-white font-italic text-danger"><%= solution.bobby  %></span></p>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 </div>
 
@@ -42,3 +44,5 @@
 <% if local_assigns[:leader] %>
   <%= link_to "Finish",  final_result_issue_path(issue), method: :post, remote: true, class: "badge badge-pill badge-info ml-2 py-2 px-3 btn-step" %>
 <% end %>
+
+
