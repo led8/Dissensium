@@ -3,11 +3,11 @@
 
 <div class="issue-list">
   <ul id="list">
-    <li><div class="list-hover">Instructions</div></li>
+    <li><div class="list-hover">Quelques conseils ?</div></li>
   </ul>
 </div>
 
-<% if @issue.owned_by?(current_user) || !local_assigns[:leader] %>
+<% if @issue.owned_by?(current_user) %>
   <div id="participants-list" class="hidden-container" >
     <ul>
     </ul>
@@ -49,7 +49,7 @@
     list.addEventListener("click", (event) => {
         opacity.style.opacity = 0.1;
         opacity.style.transition = "all 1s";
-        instructions.style.left = "144px";
+        instructions.style.left = "199px";
     });
 
     back.addEventListener("click", (event) => {
@@ -71,7 +71,7 @@
         <% else %>
           channel: 'IssuesChannel',
         <% end %>
-        issue_id: <%= @issue.id %>
+        issue_id: "<%= @issue.slug %>"
       },
       {
         connected: () => {
@@ -96,8 +96,11 @@
               };
               break;
             case 'new_solution':
-              displayParticipantsList.style.display = "inline-block";
+              if (displayParticipantsList) {
+                displayParticipantsList.style.display = "inline-block";
+              }
               currentStep.innerHTML = data.new_solution_partial;
+
               console.log(data);
               break;
             case 'solutions':
@@ -134,8 +137,10 @@
           }
 
           function checkUserConnection(user_id) {
-            const current_user_partial = participantsList.firstElementChild.querySelector('#user' + user_id);
+            if (participantsList) {
+              const current_user_partial = participantsList.firstElementChild.querySelector('#user' + user_id);
               return current_user_partial == null;
+            }
           }
 
           function addTextToUserIcon(user_id, text) {

@@ -1,7 +1,7 @@
 class VotesController < ApplicationController
 
   def new
-    @issue = Issue.includes(solutions: :user).find(params[:issue_id])
+    @issue = Issue.includes(solutions: :user).find_by(slug: params[:issue_id])
 
     solutions = @issue.solutions
 
@@ -27,7 +27,7 @@ class VotesController < ApplicationController
 
     current_user.votes.create(votes_params)
 
-    @issue = Issue.includes(solutions: :user).find(params[:issue_id])
+    @issue = Issue.includes(solutions: :user).find_by(slug: params[:issue_id])
 
     broadcast_solution_create(@issue)
     # ajax response with "thanks for your vote"
@@ -59,14 +59,14 @@ class VotesController < ApplicationController
   end
 
   def broadcast_solution_create(issue)
-    ActionCable.server.broadcast("issue_#{issue.id}", {
+    ActionCable.server.broadcast("issue_#{issue.slug}", {
       current_user_id: current_user.id,
       action: "create_votes",
-      solution_hint: " has vote" })
-    ActionCable.server.broadcast("issue_leader_#{issue.id}", {
+      solution_hint: " a voté" })
+    ActionCable.server.broadcast("issue_leader_#{issue.slug}", {
       current_user_id: current_user.id,
       action: "create_votes",
-      solution_hint: " has vote",
+      solution_hint: " a voté",
       button_next_partial: ApplicationController.renderer.render(
         partial: "votes/button_next_leader",
         locals: { issue: issue, leader: true }

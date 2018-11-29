@@ -1,15 +1,15 @@
 <div class="row mb-5">
   <div class="col-12 offset-md-1 col-md-10">
     <div class="start-container landing-container mt-4">
-      <p data-aos="zoom-in" class="meeting-user"><%= current_user.username  %></p>
-      <h6 class="meeting-title text-white"><strong>You are the leader of</strong> <br>"<%= @issue.title %>"</h6>
+      <p data-aos="zoom-in" class="meeting-user">Bienvenue <%= current_user.username  %></p>
+      <h6 class="meeting-title text-white"><strong>Vous êtes l'admin du meeting</strong> <br>"<%= @issue.title %>"</h6>
       <div class="border-bottom mt-5"></div>
       <div data-aos="zoom-in" class="url-container">
-        <h6 class="text-center text-white"><strong>Before start</strong> share this URL with your collaborators</h6>
+        <h6 class="text-center text-white"><strong>Avant de commencer </strong> partagez ce lien</h6>
         <p class="meeting-url text-center">https://www.dissensium<%= issue_path(@issue) %></p>
       </div>
       <div data-aos="zoom-in" class="collaborators-container">
-        <h6 class="text-center text-white"><strong>Wait</strong> until all collaborators are logged</h6>
+        <h6 class="text-center text-white"><strong>Attendez</strong> que tous les participants soient connectés</h6>
         <% if @issue.owned_by?(current_user) %>
           <div id="collaborators-list">
             <ul>
@@ -18,7 +18,7 @@
         <% end %>
       </div>
 
-      <%= link_to "Start meeting", start_issue_path(@issue), method: :post, remote: true, class: "btn btn-start" %>
+      <%= link_to "Démarer le meeting", start_issue_path(@issue), method: :post, remote: true, class: "btn btn-start" %>
     </div>
   </div>
 </div>
