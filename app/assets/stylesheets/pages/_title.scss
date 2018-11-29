@@ -1,4 +1,4 @@
-.title-in {
+.title-dissensium {
     position:relative;
     margin-top: 200px;
   span {
@@ -11,14 +11,6 @@
   }
 }
 
-.title-in:hover {
-
-}
-
-
-.letter-in {
-  // animation: title_anim 3s infinite;
-}
 .letter {
   animation: title_anim 15s infinite;
 }
@@ -28,8 +20,3 @@
   80% { opacity: 0.03 }
   100% { opacity: 1}
 }
-
-
-// top 50%
-// left 50%
-// transform-translate-x 50%
