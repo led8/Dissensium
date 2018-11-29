@@ -1,6 +1,9 @@
 <div class="row">
   <div class="col-12 offset-md-1 col-md-10">
-    <div class="start-container landing-container">
+    <div class="start-container landing-container position-relative">
+      <div id="loader-wrapper-start">
+        <div id="loader"></div>
+      </div>
       <p data-aos="zoom-in" class="meeting-user">Bienvenue <%= current_user.username  %></p>
       <div id="waiting-p-participant">
         <h6 class="participants-title text-white"><strong>Vous venez de rejoindre le metting</strong> <br><br>"<%= @issue.title %>"</h6>
