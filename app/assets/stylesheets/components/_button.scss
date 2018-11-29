@@ -103,6 +103,12 @@
   font-size: 14px;
 }
 
+.margin {
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+}
+
 .collection_radio_buttons {
   margin: 0 10px;
   font-family: 'Montserrat', sans-serif;
