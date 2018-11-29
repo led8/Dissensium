@@ -1,0 +1,22 @@
+.title-dissensium {
+    position:relative;
+    margin-top: 200px;
+  span {
+    font-size: 9vw;
+    color: white;
+    text-shadow: 0px 0px 10px gray;
+    text-transform: uppercase;
+    font-family: 'Hammersmith One', sans-serif;
+
+  }
+}
+
+.letter {
+  animation: title_anim 15s infinite;
+}
+
+@keyframes title_anim {
+  0% { opacity: 1}
+  80% { opacity: 0.03 }
+  100% { opacity: 1}
+}
