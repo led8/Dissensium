@@ -3,23 +3,41 @@
 
 <div class="home-list">
   <ul id="list">
-    <li><div class="list-hover">About</div></li>
-    <li><div class="list-hover">Concept</div></li>
+    <li><div class="list-hover">A propos</div></li>
+    <li><div class="list-hover">Le concept</div></li>
     <li><div class="list-hover">Contact</div></li>
   </ul>
 </div>
 
 <div class="container">
   <div class="about-content">
-    <p class= "text-center">Nous connaissons tous ces phrases-massues qui étouffent dans l’œuf toute nouvelle idée :
-      «<em> C’est beaucoup trop cher </em>», «<em> Ce n’est pas réalisable </em>» ou encore «<em> Nous n’avons encore jamais agi de la sorte </em>». Comment abandonner ces états d’esprit, éviter les phrases qui tuent et<strong style= "font-size: 16px"> évaluer les idées avec neutralité </strong>?
-    </p>
-    <i class="far fa-arrow-alt-circle-right"></i>
+    <h4 class="text-center">A PROPOS</h4>
+    <div class="border-bottom mb-5"></div>
+    <p class= "text-justify">Nous connaissons tous ces phrases-massues qui étouffent dans l’œuf toute nouvelle idée :
+      «<em> C’est beaucoup trop cher </em>», «<em> Ce n’est pas réalisable </em>» ou encore «<em> Nous n’avons encore jamais agi de la sorte </em>»... Comment abandonner ces états d’esprit, éviter les phrases qui tuent et<strong style= "font-size: 16px"> évaluer les idées avec neutralité </strong>?</p>
+    <p class="p-concept b-concept">Découvrir Dissensium</p>
     <button type="button" class="btn btn-link text-white"><span class="back-button"><</span></button>
   </div>
 
   <div class="concept-content">
-    <p>ABOUT CONCEPT</p>
+    <h4 class="text-center mt-5">LE CONCEPT</h4>
+    <div class="border-bottom mb-5"></div>
+    <div class="row">
+      <div class="col-12 offset-md-1 col-md-10">
+        <h5 class="text-center">Des idées plus futées</h5>
+        <p class="text-justify">Dans beaucoup d’entreprises, les réunions d’idées débouchent bien souvent sur un manque de courage de s’aventurer sur de nouvelles voies. Et si nouvelle idée il y a elle est immédiatement écartée or, ce n’est qu’en évoluant que l’on peut exister à long terme.</p>
+          <div class="row mt-4">
+            <div class="col-6 pl-0">
+              <h5 class="text-center">Une méthode de réflexion</h5>
+              <p class="scroll text-justify">Pour l'évaluation de vos idées réveillez le <strong>Rêveur</strong> qui est en vous. Le rêveur a toujours des pensées positives. Pensez à rester <strong>Réaliste</strong>. Cela vous permettra de rester concenter sur les questions qui doivent être éclaircies. N'hésitez pas à être <strong>Critique</strong> envers vous-même pour vérifier si l'idée comporte des dangers.</p>
+            </div>
+            <div class="col-6 position-relative pr-0">
+              <h5 class="text-center">L'équité pour chaque idée</h5>
+              <p class=" scroll text-justify">Tous les participants cherchent ensemble à faire ressortir les avantages de chaque idée. Dans un second temps toute l’équipe essaie d’isoler les points faibles de l’idée. Chaque idée a ainsi une chance équitable de passer.</p>
+            </div>
+          </div>
+      </div>
+    </div>
     <button type="button" class="btn btn-link text-white"><span class="back-button"><</span></button>
   </div>
 
@@ -31,15 +49,15 @@
  <h1 class="title-dissensium text-center ">Dissensium</h1>
 
  <div class="d-flex justify-content-around">
-   <%= link_to "Create a meeting", new_issue_path, class: "dissensium-home-link" %>
-   <%= link_to "Join a meeting", join_path, class: "dissensium-home-link" %>
+   <%= link_to "Créer un meeting", new_issue_path, class: "dissensium-home-link" %>
+   <%= link_to "Rejoindre un meeting", join_path, class: "dissensium-home-link" %>
  </div>
 </div>
 
 <div class="meeting-list">
   <ul id="meetings">
-   <li><div class="meeting-hover"><%= link_to "Create a meeting", new_issue_path, class: "dissensium-meeting-link" %></div></li>
-   <li><div class="meeting-hover"><%= link_to "Join a meeting", join_path, class: "dissensium-meeting-link" %></div></li>
+   <li><div class="meeting-hover"><%= link_to "Créer un meeting", new_issue_path, class: "dissensium-meeting-link" %></div></li>
+   <li><div class="meeting-hover"><%= link_to "Rejoindre un meeting", join_path, class: "dissensium-meeting-link" %></div></li>
   </ul>
 </div>
 
@@ -51,6 +69,7 @@
   const about = document.querySelector(".about-content");
   const concept = document.querySelector(".concept-content");
   const contact = document.querySelector(".contact-content");
+  const bConcept = document.querySelector(".b-concept");
   const back = document.querySelectorAll(".back-button");
 
 
@@ -58,56 +77,67 @@
     li.addEventListener("click", (event) => {
       if (event.currentTarget === list[0]) {
         title.style.opacity = 0;
+        title.style.visibility = "hidden";
         title.style.transition = "all 1s";
         links.forEach((link) => {
           link.style.opacity = 0;
+          link.style.visibility = "hidden";
           link.style.transition = "all 1s";
         });
-        about.style.left = "120px";
+        about.style.left = "138px";
         concept.style.left = "-1000px";
         contact.style.left = "-1000px";
 
         meetingLinks.forEach((mL) => {
           mL.style.opacity = 1;
           mL.style.visibility = "visible";
-          mL.style.transition = "all 10s";
+          mL.style.transition = "all 5s";
         });
       }
       else if (event.currentTarget === list[1]) {
         title.style.opacity = 0;
+        title.style.visibility = "hidden";
         title.style.transition = "all 1s";
         links.forEach((link) => {
           link.style.opacity = 0;
+          link.style.visibility = "hidden";
           link.style.transition = "all 1s";
         });
-        concept.style.left = "120px";
+        concept.style.left = "138px";
         about.style.left = "-1000px";
         contact.style.left = "-1000px";
 
         meetingLinks.forEach((mL) => {
           mL.style.opacity = 1;
           mL.style.visibility = "visible";
-          mL.style.transition = "all 10s";
+          mL.style.transition = "all 5s";
         });
       }
       else {
         title.style.opacity = 0;
+        title.style.visibility = "hidden";
         title.style.transition = "all 1s";
         links.forEach((link) => {
           link.style.opacity = 0;
+          link.style.visibility = "hidden";
           link.style.transition = "all 1s";
         });
-        contact.style.left = "120px";
+        contact.style.left = "138px";
         about.style.left = "-1000px";
         concept.style.left = "-1000px";
 
         meetingLinks.forEach((mL) => {
           mL.style.opacity = 1;
           mL.style.visibility = "visible";
-          mL.style.transition = "all 10s";
+          mL.style.transition = "all 5s";
         });
       }
     });
+  });
+
+  bConcept.addEventListener("click", (event) => {
+    about.style.left = "-1000px";
+    concept.style.left = "138px";
   });
 
   back.forEach((ba) => {
@@ -116,8 +146,10 @@
       concept.style.left = "-1000px";
       contact.style.left = "-1000px";
       title.style.opacity = 1;
+      title.style.visibility = "visible";
         links.forEach((link) => {
           link.style.opacity = 1;
+          link.style.visibility = "visible";
         });
       meetingLinks.forEach((mL) => {
           mL.style.opacity = 0;

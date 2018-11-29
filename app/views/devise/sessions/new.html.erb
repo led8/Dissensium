@@ -3,7 +3,7 @@
 <div class="container">
   <div class="row">
     <div data-aos="zoom-in" class="col-xs-12 offset-md-4 col-md-4 transparent-container container-margin ">
-      <h2 class="text-center">Log in</h2>
+      <h2 class="text-center">Se connecter</h2>
 
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
         <div class="form-inputs">
@@ -12,9 +12,9 @@
                       required: false,
                       autofocus: true,
                       input_html: { autocomplete: "email" } %>
-          <%= f.label :password, class: "label-style-devise" %>
+          <%= f.label :mot_de_passe, class: "label-style-devise" %>
           <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-            <%= link_to "Forgot your password?", new_password_path(resource_name), class: "forgot-password-link" %><br />
+            <%= link_to "Mot de passe oublié ?", new_password_path(resource_name), class: "forgot-password-link" %><br />
           <% end -%>
           <%= f.input_field :password, class: "form-control devise-style",
                       required: false,
@@ -25,7 +25,7 @@
         <%= render "devise/shared/links" %>
 
         <div class="form-actions">
-          <%= f.button :submit, "Log in", class: "form-control button-style-log" %>
+          <%= f.button :submit, "Se connecter", class: "form-control button-style-log" %>
         </div>
       <% end %>
     </div>

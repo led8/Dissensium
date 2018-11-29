@@ -10,10 +10,10 @@
 </div>
 
 <% if local_assigns[:leader] %>
-  <%= link_to "Next Step",  start_issue_path(issue), method: :post, remote: true, class: "badge badge-pill badge-info ml-2 py-2 px-3 btn-step" %>
+  <%= link_to "Passer à l'étape suivant",  start_issue_path(issue), method: :post, remote: true, class: "badge badge-pill badge-info ml-2 py-2 px-3 btn-step" %>
 <% end %>
 
 
 <% if local_assigns[:leader] %>
-  <%= link_to "Finish",  final_result_issue_path(issue), method: :post, remote: true, class: "badge badge-pill badge-info ml-2 py-2 px-3 btn-step" %>
+  <%= link_to "Cloturer le meeting",  final_result_issue_path(issue), method: :post, remote: true, class: "badge badge-pill badge-info ml-2 py-2 px-3 btn-step" %>
 <% end %>

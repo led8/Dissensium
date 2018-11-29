@@ -1,6 +1,6 @@
 class IssuesLeaderChannel < ApplicationCable::Channel
   def subscribed
-    issue = Issue.find(params[:issue_id])
+    issue = Issue.find_by(slug: params[:issue_id])
     return unless issue.owned_by?(current_user)
     stream_from "issue_leader_#{params[:issue_id]}"
     ActionCable.server.broadcast("issue_#{params[:issue_id]}", {

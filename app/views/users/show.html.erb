@@ -10,24 +10,24 @@
           <%= cl_image_tag current_user.avatar, format: :jpg, class: "img-medium" %>
           <div class="user-content ml-5"></div>
           <div class= "form-check-label">
-            <p>Username</p>
+            <p>Pseudo</p>
             <p class="field text-center"><%= @user.username %></p>
             <p>eMail</p>
             <p class="field text-center"><%= @user.email %></p>
           </div>
-          <%= link_to "Edit", edit_user_registration_path(@user), class: "button-style-edit form-control text-center " %>
+          <%= link_to "Modifier", edit_user_registration_path(@user), class: "button-style-edit form-control text-center " %>
         </div>
       </div>
       <div class="margin-x-15">
         <div class="row mt-3">
           <div class="col-6  pl-0">
             <div class="opacity-container-bottom mt-3 ">
-              <h5 class = "text-center">My Meetings</h5>
+              <h5 class = "text-center">Mes meetings</h5>
             </div>
           </div>
           <div class="col-6  position-relative pr-0">
             <div class="opacity-container-bottom mt-3">
-              <h5 class = "text-center">My Calendar</h5>
+              <h5 class = "text-center">Mon agenda</h5>
             </div>
           </div>
         </div>

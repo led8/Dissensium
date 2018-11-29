@@ -1,7 +1,7 @@
 class IssuesController < ApplicationController
 
   def show
-    @issue = Issue.includes(solutions: :user).find(params[:id])
+    @issue = Issue.includes(solutions: :user).find_by(slug: params[:id])
     @solution = Solution.new
     @vote = Vote.new
   end
@@ -22,7 +22,7 @@ class IssuesController < ApplicationController
   end
 
   def start
-    @issue = Issue.includes(solutions: :user).find(params[:id])
+    @issue = Issue.includes(solutions: :user).find_by(slug: params[:id])
      ActionCable.server.broadcast("issue_#{params[:id]}", {
       action: "new_solution",
       new_solution_partial: ApplicationController.renderer.render(
@@ -40,7 +40,7 @@ class IssuesController < ApplicationController
   end
 
   def results
-     @issue = Issue.includes(solutions: :user).find(params[:id])
+     @issue = Issue.includes(solutions: :user).find_by(slug: params[:id])
      ActionCable.server.broadcast("issue_#{params[:id]}", {
       action: "display_results",
       results_partial: ApplicationController.renderer.render(
@@ -59,7 +59,7 @@ class IssuesController < ApplicationController
   end
 
   def final_result
-    @issue = Issue.includes(solutions: :user).find(params[:id])
+    @issue = Issue.includes(solutions: :user).find_by(slug: params[:id])
      ActionCable.server.broadcast("issue_#{params[:id]}", {
       action: "final_result",
       final_result_partial: ApplicationController.renderer.render(

@@ -52,6 +52,8 @@
 
 .meeting-user {
   position: absolute;
+  left: 2px;
+  top: 2px;
   font-family: 'Montserrat', sans-serif;
   font-size: 13px;
   border: 1px solid #093637;
@@ -73,6 +75,7 @@
   width: 750px;
   max-height: 70px;
   text-align: center;
+  // border: 1px solid black;
 }
 
 .participants-title {
@@ -97,15 +100,22 @@
   background: #44A08D;
   color: white;
   font-weight: bold;
+  max-width: 400px;
+  overflow-x: scroll;
 }
 
 .connected-user {
   list-style: none;
 }
 
+.text-color {
+  font-size: 14px;
+  color: lime;
+}
+
 .connected-text {
   color: white;
   font-family: 'Montserrat', sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   margin-left: 15px;
 }

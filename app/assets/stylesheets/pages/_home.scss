@@ -94,13 +94,27 @@
     right: 4vh;
     top: 1vh;
   }
-  & i {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    right:50%;
-    font-size: 30px;
+}
+
+.p-concept {
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+  top: 350px;
+  font-weight: bold;
+  animation: concept 5s infinite;
+  &:hover {
+    text-decoration: underline;
+    cursor: pointer;
   }
+}
+
+@keyframes concept {
+  0% {opacity: 0.4}
+  25% {opacity: 1}
+  50% {opacity: 0.4}
+  75% {opacity: 1}
+  100% {opacity: 0.4}
 }
 
 .concept-content {
@@ -117,10 +131,9 @@
   left: -1000px;
   transition: ease-out 1s;
   & p {
-    position: absolute;
-    opacity: 0.8;
+    opacity: 1;
     font-size: 15px;
-    top: 10vh;
+    line-height: 30px;
   }
   & span {
     font-size: 30px;
@@ -128,6 +141,11 @@
     right: 4vh;
     top: 1vh;
   }
+}
+
+.scroll {
+  height: 150px;
+  overflow-y: scroll;
 }
 
 .contact-content {

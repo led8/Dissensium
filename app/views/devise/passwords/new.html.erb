@@ -4,7 +4,7 @@
 <div class="container">
   <div class="row">
     <div data-aos="zoom-in" class="col-xs-12 offset-md-3 col-md-6 transparent-container container-margin-edit ">
-      <h2 class="text-center">Forgot your password?</h2>
+      <h2 class="text-center">Mot de passe oublié ?</h2>
 
       <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
         <%= f.error_notification %>
@@ -18,7 +18,7 @@
         </div>
 
         <div class="form-actions">
-          <%= f.button :submit, "Send me reset password instructions", class: "form-control button-style-log border-warning" %>
+          <%= f.button :submit, "Envoyer les instructions", class: "form-control button-style-log border-warning" %>
         </div>
       <% end %>
     </div>
