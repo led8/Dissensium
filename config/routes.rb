@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     member do
       post 'start'
       get 'results'
+      post 'final_result'
     end
     resources :solutions, only: [:new, :create]
     resources :votes, only: [:new, :create]

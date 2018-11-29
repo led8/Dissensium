@@ -3,36 +3,30 @@
 
 <div class="issue-list">
   <ul id="list">
-    <li><div class="list-hover">Instructions</div></li>
+    <li><div class="list-hover">Quelques conseils ?</div></li>
   </ul>
 </div>
 
 <% if @issue.owned_by?(current_user) %>
-  <div id="participants-list">
+  <div id="participants-list" class="hidden-container" >
     <ul>
-
     </ul>
   </div>
 <% end %>
 
-<% if !@issue.support.file.nil? %>
-  <div class="row opacity">
-    <div class="col-xs-12 offset-md-2 col-md-8 white-container mt-5">
-      <h3 class= "text-center">Issue support</h3>
-        <%= link_to cl_image_path(@issue.support), target: "_blank" do %>
-        <%= cl_image_tag @issue.support, format: :jpg, height: 300, width: 400, crop: :scale, class: "support" %>
-      <% end %>
-    </div>
-  </div>
-<% end %>
-
-<div class="instructions-content">
+<div class="container">
+  <div class="instructions-content">
     <p>ABOUT INSTRUCTIONS</p>
     <button type="button" class="btn btn-link text-white"><span class="back-button"><</span></button>
-</div>
+  </div>
 
-<div class="container">
-  <div id="current_step">
+  <% if !@issue.support.file.nil? %>
+    <div class="text-center">
+      <%= link_to "Support", cl_image_path(@issue.support), target: "_blank", class: "btn btn-support" %>
+    </div>
+  <% end %>
+
+  <div class="opacity" id="current_step">
     <div id="start-page" class="">
       <% if @issue.owned_by?(current_user) %>
         <%= render 'issues/start_page' %>
@@ -55,7 +49,7 @@
     list.addEventListener("click", (event) => {
         opacity.style.opacity = 0.1;
         opacity.style.transition = "all 1s";
-        instructions.style.left = "144px";
+        instructions.style.left = "199px";
     });
 
     back.addEventListener("click", (event) => {
@@ -66,6 +60,8 @@
     ///////////////////////////////////
 
     const participantsList = document.getElementById('participants-list');
+    const collaboratorsList = document.getElementById('collaborators-list');
+    const displayParticipantsList = document.querySelector(".hidden-container");
     const currentStep = document.getElementById('current_step');
     const currentSolutions = document.getElementById('current_solutions')
     App.cable.subscriptions.create(
@@ -75,7 +71,7 @@
         <% else %>
           channel: 'IssuesChannel',
         <% end %>
-        issue_id: <%= @issue.id %>
+        issue_id: "<%= @issue.slug %>"
       },
       {
         connected: () => {
@@ -89,16 +85,22 @@
         },
         received: (data) => {
 
-
           switch (data.action) {
             case 'subscribed':
               console.log("User " + data.current_user_id + " subscribed");
               if (checkUserConnection(data.current_user_id) == true){
                 participantsList.firstElementChild.insertAdjacentHTML("beforeend", data.user_partial)
+                if (collaboratorsList != null) {
+                collaboratorsList.firstElementChild.insertAdjacentHTML("beforeend", data.user_partial)
+                };
               };
               break;
             case 'new_solution':
+              if (displayParticipantsList) {
+                displayParticipantsList.style.display = "inline-block";
+              }
               currentStep.innerHTML = data.new_solution_partial;
+
               console.log(data);
               break;
             case 'solutions':
@@ -107,26 +109,45 @@
             break;
             case 'create_solution':
               addTextToUserIcon(data.current_user_id, data.solution_hint)
+              if (data.current_user_id == <%= @issue.user.id %>) {
+                if (document.getElementById('new_solution_leader')){
+                document.getElementById('new_solution_leader').innerHTML = data.button_next_partial;
+                };
+              };
               break;
             case 'new_votes':
               currentStep.innerHTML = data.new_votes_partial;
               console.log(data);
-            case 'create_vote':
+            break;
+            case 'create_votes':
               addTextToUserIcon(data.current_user_id, data.solution_hint)
+              if (data.current_user_id == <%= @issue.user.id %>) {
+                document.getElementById('vote_form_leader').innerHTML= data.button_next_partial;
+              };
+              break;
+            case 'display_results':
+              console.log(data);
+              currentStep.innerHTML = data.results_partial;
+              break;
+            case 'final_result':
+              currentStep.innerHTML = data.final_result_partial;
               break;
             default:
               console.log('No action ' + data.action + '.');
           }
 
           function checkUserConnection(user_id) {
-            const current_user_partial = participantsList.firstElementChild.querySelector('#user' + user_id);
+            if (participantsList) {
+              const current_user_partial = participantsList.firstElementChild.querySelector('#user' + user_id);
               return current_user_partial == null;
+            }
           }
 
           function addTextToUserIcon(user_id, text) {
             if (checkUserConnection(user_id) != true){
               const current_user_partial = participantsList.firstElementChild.querySelector('#user' + user_id);
-              current_user_partial.append(text);
+                textSpan = current_user_partial.querySelector(".connected-text");
+                textSpan.innerText = text;
             };
           }
 

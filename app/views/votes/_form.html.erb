@@ -1,12 +1,47 @@
-<%= simple_form_for :votes, url: issue_votes_path(issue), remote: true do |f| %>
-  <div class="container-overflow">
-    <% solutions.each do |solution| %>
-      <h3><%= solution.content %></h3>
-        <%= f.simple_fields_for "solution_#{solution.id}", Vote.new do |v| %>
-        <%= v.input :solution_id, input_html: { value: solution.id } %>
-        <%= v.input :rating, as: :radio_buttons, collection: (1..5) %>
-      <% end %>
-    <% end %>
+<% if !local_assigns[:leader] %>
+  <div id="vote_form">
+    <div class="row">
+      <div class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5">
+        <h6 class="meeting-title text-white"><strong>L'objet du meeting est <br><br></strong>"<%= issue.title %>"</h6>
+        <div class="border-bottom mt-5"></div>
+        <%= simple_form_for :votes, url: issue_votes_path(issue), remote: true do |f| %>
+          <div class="container-overflow-vote">
+            <% solutions.each do |solution| %>
+              <h3 data-aos="zoom-in" class="vote-content"><%= solution.content %></h3>
+              <div data-aos="zoom-in" class="seperate-content mb-3">
+                  <%= f.simple_fields_for "solution_#{solution.id}", Vote.new do |v| %>
+                  <%= v.input :solution_id, input_html: { value: solution.id }, as: :hidden %>
+                  <%= v.collection_radio_buttons :rating, [[5, "Excellent"], [4, "Très bien"], [3, "Bien"], [2, "Passable"], [1, "Insuffisant"]], :first, :last %>
+              <% end %>
+              </div>
+            <% end %>
+          </div>
+          <%= f.button :submit, "Sauvegarder les votes", class: "form-control btn-send" %>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <%= f.submit %>
+<% elsif local_assigns[:leader] %>
+  <div id="vote_form_leader">
+    <div class="row">
+      <div class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5">
+        <h6 class="meeting-title text-white"><strong>L'objet du meeting est <br><br></strong>"<%= issue.title %>"</h6>
+          <div class="border-bottom mt-5"></div>
+        <%= simple_form_for :votes, url: issue_votes_path(issue), remote: true do |f| %>
+          <div class="container-overflow-vote">
+            <% solutions.each do |solution| %>
+              <h3 data-aos="zoom-in" class="vote-content"><%= solution.content %></h3>
+              <div data-aos="zoom-in" class="seperate-content mb-3">
+                  <%= f.simple_fields_for "solution_#{solution.id}", Vote.new do |v| %>
+                  <%= v.input :solution_id, input_html: { value: solution.id }, as: :hidden %>
+                  <%= v.collection_radio_buttons :rating, [[5, "Excellent"], [4, "Très bien"], [3, "Bien"], [2, "Passable"], [1, "Insuffisant"]], :first, :last %>
+              <% end %>
+              </div>
+            <% end %>
+          </div>
+          <%= f.button :submit, "Sauvegarder les votes", class: "form-control btn-send" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
 <% end %>

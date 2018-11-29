@@ -1,10 +1,9 @@
 class VotesController < ApplicationController
 
   def new
-    @issue = Issue.includes(solutions: :user).find(params[:issue_id])
+    @issue = Issue.includes(solutions: :user).find_by(slug: params[:issue_id])
 
     solutions = @issue.solutions
-
 
     # TODO: keep only solutions that have enough votes
 
@@ -28,8 +27,9 @@ class VotesController < ApplicationController
 
     current_user.votes.create(votes_params)
 
-    # compter le nombre de solution pour lancer le broadcast_solution_create(vote)
+    @issue = Issue.includes(solutions: :user).find_by(slug: params[:issue_id])
 
+    broadcast_solution_create(@issue)
     # ajax response with "thanks for your vote"
 
     # broadcast votes infos to leader
@@ -50,22 +50,27 @@ class VotesController < ApplicationController
 
   private
 
-  # def broadcast_solution_create(vote)
-  #   ActionCable.server.broadcast("issue_#{vote.solution.issue.id}", {
-  #     current_user_id: current_user.id,
-  #     action: "create_vote",
-  #     solution_hint: " is ready" })
-  #   ActionCable.server.broadcast("issue_leader_#{vote.solution.issue.id}", {
-  #     current_user_id: current_user.id,
-  #     action: "create_vote",
-  #     solution_hint: " is ready" })
-  # end
-
   def votes_params
     params_to_return = []
     params.require(:votes).each do |_, vote_params|
       params_to_return << vote_params.permit(:solution_id, :rating)
     end
     params_to_return
+  end
+
+  def broadcast_solution_create(issue)
+    ActionCable.server.broadcast("issue_#{issue.slug}", {
+      current_user_id: current_user.id,
+      action: "create_votes",
+      solution_hint: " a voté" })
+    ActionCable.server.broadcast("issue_leader_#{issue.slug}", {
+      current_user_id: current_user.id,
+      action: "create_votes",
+      solution_hint: " a voté",
+      button_next_partial: ApplicationController.renderer.render(
+        partial: "votes/button_next_leader",
+        locals: { issue: issue, leader: true }
+      )
+    })
   end
 end

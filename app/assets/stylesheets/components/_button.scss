@@ -2,7 +2,7 @@
   position: absolute;
   bottom: 40px;
   right: 70px;
-  width: 15%;
+  width: 25%;
   margin-top: 30px;
   font-family: 'Montserrat', sans-serif;
   border: 1px solid #093637;
@@ -95,5 +95,41 @@
     background: white;
     color: #44A08D;
     border-color: white;
+  }
+}
+
+.btn-step {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+}
+
+.margin {
+  position: absolute;
+  right: 50%;
+  transform: translateX(50%);
+}
+
+.collection_radio_buttons {
+  margin: 0 10px;
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+  font-size: 14px;
+}
+
+.btn-support{
+  position: absolute;
+  top: 70px;
+  left: 60px;
+  width: 10%;
+  margin-top: 30px;
+  font-family: 'Montserrat', sans-serif;
+  border: 1px solid #093637;
+  background: #093637;
+  color: white;
+  &:hover {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    box-shadow: none;
   }
 }

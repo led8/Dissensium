@@ -1,9 +1,13 @@
-<% if local_assigns[:leader] %>
-  <div id="waiting-p-participant" class="landing-container">
-    <h1 class="text-white text-center"></h1>
-    <div class="white-container landing-container">
-      <div class="">
-        <h4>Thanks for your solution, waiting for next step</h4>
+<% if !local_assigns[:leader] %>
+  <div class="row">
+    <div class="col-12 offset-md-2 col-md-8">
+      <div id="waiting-p-participant" class="start-container landing-container position-relative">
+        <div id="loader-wrapper">
+          <div id="loader"></div>
+        </div>
+        <div data-aos="zoom-in" class="waiting-container">
+          <h6 class="text-white text-center">Pas de panique, <strong>avant de continuer</strong> vous devez attendre les autres participants</h6>
+        </div>
       </div>
     </div>
   </div>

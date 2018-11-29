@@ -6,12 +6,21 @@ class Issue < ApplicationRecord
 
   mount_uploader :support, PhotoUploader
 
+  after_validation :generate_slug
+
   def owned_by?(user)
     self.user == user
   end
 
-# To generate a random link
-  # def to_param
-  #   Digest::SHA1.hexdigest "#{id} #{title}"
-  # end
+  def to_param
+    self.slug
+  end
+
+  private
+
+  def generate_slug
+    self.slug = Digest::SHA1.hexdigest "#{id} #{title}"
+  end
+
+
 end

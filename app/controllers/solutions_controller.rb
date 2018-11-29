@@ -3,7 +3,7 @@ class SolutionsController < ApplicationController
 
   def create
     @solution = Solution.new(solution_params)
-    @solution.issue = Issue.find(params[:issue_id])
+    @solution.issue = Issue.find_by(slug: params[:issue_id])
     @solution.user = current_user
 
     if @solution.save
@@ -21,16 +21,8 @@ class SolutionsController < ApplicationController
   end
 
   def broadcast_solution
-    ActionCable.server.broadcast("issue_#{@solution.issue.id}", {
-      action: "solutions",
-      solution_partial: ApplicationController.renderer.render(
-        partial: "solutions/solution",
-        locals: { solution: @solution }
-      ),
-      current_user_id: @solution.user.id
-    })
 
-    ActionCable.server.broadcast("issue_leader_#{@solution.issue.id}", {
+    ActionCable.server.broadcast("issue_leader_#{@solution.issue.slug}", {
       action: "solutions",
       solution_partial: ApplicationController.renderer.render(
         partial: "solutions/solution",
@@ -43,14 +35,20 @@ class SolutionsController < ApplicationController
   private
 
   def broadcast_solution_create(solution)
-    ActionCable.server.broadcast("issue_#{solution.issue.id}", {
+    ActionCable.server.broadcast("issue_#{solution.issue.slug}", {
       current_user_id: current_user.id,
       action: "create_solution",
-      solution_hint: " is ready" })
-    ActionCable.server.broadcast("issue_leader_#{solution.issue.id}", {
+      solution_hint: "a envoyé sa solution"
+      })
+    ActionCable.server.broadcast("issue_leader_#{solution.issue.slug}", {
       current_user_id: current_user.id,
       action: "create_solution",
-      solution_hint: " is ready" })
+      solution_hint: "a envoyé sa solution",
+      button_next_partial: ApplicationController.renderer.render(
+        partial: "solutions/button_next_leader",
+        locals: { issue: solution.issue, leader: true }
+      )
+      })
   end
 
   def solution_params
