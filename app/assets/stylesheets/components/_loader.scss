@@ -1,10 +1,21 @@
+#loader-wrapper-start{
+  position: absolute;
+  bottom: 30%;
+  right: 46%;
+  width: 15%;
+  height: 15%;
+  z-index: 1000;
+  transform: translate(50%,50%);
+}
+
 #loader-wrapper {
     position: absolute;
-    bottom: 0;
-    right: 0;
+    bottom: 40%;
+    right: 46%;
     width: 15%;
     height: 15%;
     z-index: 1000;
+    transform: translate(50%,50%);
 }
 #loader {
     display: block;
