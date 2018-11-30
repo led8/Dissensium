@@ -39,7 +39,7 @@
 
 <div class="margin">
 <% if local_assigns[:leader] %>
-  <%= link_to "Recommencer le meeting",  start_issue_path(issue), method: :post, remote: true, class: "badge badge-pill badge-success ml-2 py-2 px-3 btn-step" %>
+  <%= link_to "Reprendre le meeting",  start_issue_path(issue), method: :post, remote: true, class: "badge badge-pill badge-success ml-2 py-2 px-3 btn-step" %>
 <% end %>
 
 
@@ -47,4 +47,3 @@
   <%= link_to "Cloturer le meeting",  final_result_issue_path(issue), method: :post, remote: true, class: "badge badge-pill badge-danger ml-2 py-2 px-3 btn-step" %>
 <% end %>
 </div>
-

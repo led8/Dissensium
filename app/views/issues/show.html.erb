@@ -16,7 +16,36 @@
 
 <div class="container">
   <div class="instructions-content">
-    <p>ABOUT INSTRUCTIONS</p>
+    <h4 class="text-center mt-5">LES CONSEILS DE DISSENSIUM</h4>
+    <div class="border-bottom mb-5"></div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-center">Stimulez vos 5 sens</h6>
+        <p class="text-justify">Plus vous vous intéressez au meeting, l’analysez et le considérez sous tous les angles possibles, plus les bonnes idées vous viendront facilement.</p>
+      </div>
+      <div class="col">
+        <h6 class="text-center">Il ne s'agit pas d'une compétition</h6>
+        <p class="text-justify">Il ne s'agit pas de savoir qui a tort oui qui a raison. Laissez libre cours à votre imagination.</p>
+      </div>
+      <div class="col">
+        <h6 class="text-center">Evitez les phases castratrices</h6>
+        <p class="text-justify">Ne posez aucune limite à vos envies de créativité. Soyez débridé et osez saisir chaque opportuninté.</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <h6 class="text-center">Ne pas être en concurrence avec les autres</h6>
+        <p class="text-justify">Considérer vos collègues comme des fournisseurs de matières premières pour vos futurs idées.</p>
+      </div>
+      <div class="col">
+        <h6 class="text-center">Cherchez les points positifs dans les idées des autres</h6>
+        <p class="text-justify">Les erreurs constituent un principe didactique fondamental qui accompagne toutes les grandes inventions et engendre souvent des idées géniales.</p>
+      </div>
+      <div class="col">
+        <h6 class="text-center text-uppercase">Associez les idées des autres</h6>
+        <strong><p class="text-justify">Posez-vous les questions suivantes : comment relier les ébauches d’idées entre elles afin de les optimiser ou de trouver une idée qui fasse l'unanimité ?</p></strong>
+      </div>
+    </div>
     <button type="button" class="btn btn-link text-white"><span class="back-button"><</span></button>
   </div>
 
@@ -47,7 +76,8 @@
   const back = document.querySelector(".back-button");
 
     list.addEventListener("click", (event) => {
-        opacity.style.opacity = 0.1;
+        opacity.style.opacity = 0;
+        opacity.style.visibility = "hidden";
         opacity.style.transition = "all 1s";
         instructions.style.left = "199px";
     });
@@ -55,6 +85,7 @@
     back.addEventListener("click", (event) => {
       instructions.style.left = "-1000px";
       opacity.style.opacity = 1;
+      opacity.style.visibility = "visible";
     });
 
     ///////////////////////////////////

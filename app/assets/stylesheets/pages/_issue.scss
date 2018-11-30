@@ -37,10 +37,9 @@
   transition: ease-out 1s;
   z-index: 1;
   & p {
-    position: absolute;
-    opacity: 0.8;
+    opacity: 1;
     font-size: 15px;
-    top: 10vh;
+    line-height: 25px;
   }
   & span {
     font-size: 30px;
