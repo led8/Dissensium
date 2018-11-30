@@ -1,7 +1,7 @@
 <div class="row">
   <div data-aos="zoom-in" class="col-xs-12 offset-md-1 col-md-10 transparent-container solution-container mb-5">
     <h6 class="meeting-title text-white mt-2"><strong class="text-uppercase">Dissensium</strong> <br><strong>vous propose les résultats suivants</strong></h6>
-        <div class="border-bottom mt-5"></div>
+    <div class="border-bottom mt-5"></div>
     <div class="container-overflow">
       <% issue.solutions.each do |solution| %>
         <% if solution.bobby == " Excellent" %>
@@ -16,7 +16,7 @@
         <% end %>
       <% end %>
       <% issue.solutions.each do |solution| %>
-        <% if solution.bobby == "  Bien" %>
+        <% if solution.bobby == " Bien" %>
           <h3 class= "vote-content"><%=  solution.content %></h3>
           <p class= "vote-content font-italic seperate-content mb-3">Indice | <span class = "text-white font-italic text-white"><%= solution.bobby  %></span></p>
         <% end %>
