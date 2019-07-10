@@ -11,14 +11,17 @@ class VotesController < ApplicationController
       action: "new_votes",
       new_votes_partial: ApplicationController.renderer.render(
         partial: "votes/form",
-        locals: { issue: @issue, solutions: solutions }
+        locals: { issue: @issue,
+                  solutions: solutions }
       )
     })
     ActionCable.server.broadcast("issue_leader_#{params[:issue_id]}", {
       action: "new_votes",
       new_votes_partial: ApplicationController.renderer.render(
         partial: "votes/form",
-        locals: { issue: @issue, solutions: solutions, leader: true }
+        locals: { issue: @issue,
+                  solutions: solutions,
+                  leader: true }
       )
     })
   end

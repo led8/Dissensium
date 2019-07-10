@@ -8,7 +8,9 @@ class IssuesLeaderChannel < ApplicationCable::Channel
       action: "subscribed",
       user_partial: ApplicationController.renderer.render(
         partial: "issues/user_icon.html",
-        locals: { user: self, user_is_users_author: false, current_user_id: current_user.id}
+        locals: { user: self,
+                  user_is_users_author: false,
+                  current_user_id: current_user.id }
       )
     })
     ActionCable.server.broadcast("issue_leader_#{params[:issue_id]}", {
@@ -16,7 +18,9 @@ class IssuesLeaderChannel < ApplicationCable::Channel
       action: "subscribed",
       user_partial: ApplicationController.renderer.render(
         partial: "issues/user_icon.html",
-        locals: { user: self, user_is_users_author: false, current_user_id: current_user.id}
+        locals: { user: self,
+                  user_is_users_author: false,
+                  current_user_id: current_user.id }
       )
     })
   end
