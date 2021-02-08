@@ -9,7 +9,7 @@ gem 'puma'
 gem 'rails', '5.2.1'
 gem 'redis'
 gem 'cloudinary', '1.10.1.pre.rc'
-gem 'carrierwave', '~> 1.2'
+gem 'carrierwave', '~> 1.3'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
